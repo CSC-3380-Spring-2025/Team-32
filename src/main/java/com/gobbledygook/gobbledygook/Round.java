@@ -4,58 +4,67 @@ package com.gobbledygook.gobbledygook;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /* Represents a single round, tracking submissions and votes */
 public class Round {
     private int roundNumber;
     private String targetWord;
-    /* UUID in the follows Maps correspond to players */
-    private Map<UUID, String> wordChainSubmissions;
-    private Map<UUID, String> fakeDefinitions;
-    private Map<UUID, Integer> votes;
-    private Map<UUID, String> stories;
+    private List<wordChain> wordChainSubmissions; // assuming we'll wanna implement it as a class instead
+    private List<Definition> definitions; // i've implemented a definition class
+    private List<Story> stories; // assuming we'll want to implement a story class as well
+    private Map<UUID, UUID> votes; // Player ID -> Definition ID
 
     public Round() {
         this.roundNumber = 0;
         this.targetWord = "";
-        this.wordChainSubmissions = new HashMap<>();
-        this.fakeDefinitions = new HashMap<>();
+        this.wordChainSubmissions = new ArrayList<>();
+        this.definitions = new ArrayList<>();
+        this.stories = new ArrayList<>();
         this.votes = new HashMap<>();
-        this.stories = new HashMap<>();
     }
 
-    /* method to track votes */
+    public void addDefinition(UUID playerId, String text) {
+        definitions.add(new Definition(playerId, text));
+    }
+    
     public void castVote(UUID playerId, UUID definitionId) {
         votes.put(playerId, definitionId);
     }
 
     public void processVotes(GameSession gameSession) {
-        // Map to track player scores
         Map<UUID, Player> playerMap = gameSession.getPlayers().stream()
                 .collect(Collectors.toMap(Player::getId, p -> p));
     
-        // Determine the correct definition (assuming it's stored in targetWord)
-        String correctDefinition = targetWord;
-    
-        for (Map.Entry<UUID, Integer> voteEntry : votes.entrySet()) {
+        // Track votes and assign points
+        for (Map.Entry<UUID, UUID> voteEntry : votes.entrySet()) {
             UUID voterId = voteEntry.getKey();
-            UUID votedDefinitionOwnerId = voteEntry.getValue();
+            UUID votedDefinitionId = voteEntry.getValue();
     
-            Player voter = playerMap.get(voterId);
-            Player definitionOwner = playerMap.get(votedDefinitionOwnerId);
+            // Find the definition
+            Definition votedDefinition = definitions.stream()
+                    .filter(d -> d.getId().equals(votedDefinitionId))
+                    .findFirst()
+                    .orElse(null);
     
-            // Award points if the vote was for the correct definition
-            if (fakeDefinitions.get(votedDefinitionOwnerId) == null) {
-                voter.setScore(voter.getScore() + 1);
-            }
+            if (votedDefinition != null) {
+                votedDefinition.addVote();
     
-            // Award points if the player's fake definition was chosen
-            if (definitionOwner != null) {
-                definitionOwner.setScore(definitionOwner.getScore() + 1);
+                Player voter = playerMap.get(voterId);
+                Player owner = playerMap.get(votedDefinition.getOwnerId());
+    
+                // Award points for voting correctly
+                if (votedDefinition.getText().equals(targetWord)) {
+                    voter.setScore(voter.getScore() + 1);
+                }
+    
+                // Award points for fooling others
+                if (owner != null) {
+                    owner.setScore(owner.getScore() + 1);
+                }
             }
         }
     
-        // Send feedback to all players
         sendFeedbackToPlayers(gameSession);
     }
 
