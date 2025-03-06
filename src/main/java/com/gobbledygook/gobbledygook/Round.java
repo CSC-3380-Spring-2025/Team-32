@@ -23,4 +23,9 @@ public class Round {
         this.votes = new HashMap<>();
         this.stories = new HashMap<>();
     }
+
+    /* method to track votes */
+    public void castVote(UUID playerId, UUID definitionId) {
+        votes.put(playerId, definitionId);
+    }
 }
