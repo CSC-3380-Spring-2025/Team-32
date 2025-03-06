@@ -2,6 +2,8 @@ package com.gobbledygook.gobbledygook;
 
 
 import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -10,7 +12,7 @@ import java.util.stream.Collectors;
 public class Round {
     private int roundNumber;
     private String targetWord;
-    private List<wordChain> wordChainSubmissions; // assuming we'll wanna implement it as a class instead
+    private List<WordChain> wordChainSubmissions; // assuming we'll wanna implement it as a class instead
     private List<Definition> definitions; // i've implemented a definition class
     private List<Story> stories; // assuming we'll want to implement a story class as well
     private Map<UUID, UUID> votes; // Player ID -> Definition ID
