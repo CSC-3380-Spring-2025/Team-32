@@ -18,7 +18,7 @@ Describe a little about what the project is about here.
 # Important Links
 Kanban Board: [[link](https://github.com/orgs/CSC-3380-Spring-2025/projects/4)]\
 Designs: [link]\
-Styles Guide(s): [link]
+Styles Guide(s): [[link](https://github.com/CSC-3380-Spring-2025/Team-32/blob/readme-update/Git%20Master%20-%20Code%20Standards.pdf)]
 
 # How to Run Dev and Test Environment
 
