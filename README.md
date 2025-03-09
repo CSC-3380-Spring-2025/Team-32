@@ -1,14 +1,14 @@
-# [Name of the Project] : [Team Number]
+# [Gobbledygook] : [Team 32]
 # Members
-Project Manager: [Name] ([GitHub Name])\
-Communications Lead: [Name] ([GitHub Name])\
-Git Master: [Name] ([GitHub Name])\
-Design Lead: [Name] ([GitHub Name])\
-Quality Assurance Tester: [Name] ([GitHub Name])
+Project Manager: [Joeseph Strauss] ([cuppajoe123])\
+Communications Lead: [William Morales] ([WilliamMorales1])\
+Git Master: [Calvin Gavin] ([CrawfishChowder])\
+Design Lead: [Kade Whiteman] ([kmwhitman])\
+Quality Assurance Tester: [Julian Madrigal] ([jmadripz])
 
 # About Our Software
 
-Describe a little about what the project is about here.
+Describe a little about what the project is about here. 
 ## Platforms Tested on
 - MacOS
 - Android
@@ -16,7 +16,7 @@ Describe a little about what the project is about here.
 - Linux
 - Windows
 # Important Links
-Kanban Board: [link]\
+Kanban Board: [[link](https://github.com/orgs/CSC-3380-Spring-2025/projects/4)]\
 Designs: [link]\
 Styles Guide(s): [link]
 
