@@ -27,6 +27,6 @@ public class GameSession {
     }
     
     public void addFakeDefinition(Definition definition){
-        fakeDefinitions.add(definition);
+        fakeDefinitions.add(definition)
     }
 }
