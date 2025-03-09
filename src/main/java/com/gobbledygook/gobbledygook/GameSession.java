@@ -11,6 +11,7 @@ import java.util.UUID;
 public class GameSession {
     private UUID id;
     private List<Player> players;
+    private List<Definition> fakeDefinitions;
     private Round currentRound;
     private GamePhase state;
 
@@ -23,5 +24,9 @@ public class GameSession {
 
     public void addPlayer(Player player) {
         players.add(player);
+    }
+    
+    public void addFakeDefinition(Definition definition){
+        fakeDefinitions.add(definition);
     }
 }
