@@ -26,8 +26,16 @@ public class Round {
         this.votes = new HashMap<>();
     }
 
+    public void addWordChain(UUID playerId, String word) {
+        wordChainSubmissions.add(new WordChain(playerId, word));
+    }
+
     public void addDefinition(UUID playerId, String text) {
         definitions.add(new Definition(playerId, text));
+    }
+
+    public void addStory(UUID playerId, String text) {
+        stories.add(new Story(playerId, text));
     }
     
     public void castVote(UUID playerId, UUID definitionId) {
