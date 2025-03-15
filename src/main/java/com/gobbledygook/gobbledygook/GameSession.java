@@ -29,4 +29,18 @@ public class GameSession {
     public void addFakeDefinition(Definition definition){
         fakeDefinitions.add(definition)
     }
+
+    // interates thru players' powerups, and calls onGameStateChange for the powerups (so they activate at the right game state)
+    public void setState(GameState newState) {
+        this.state = newState;
+    
+        for (Player player : players) {
+            for (PowerUp powerUp : player.getPowerUps()) {
+                // this is so it only activates at the *end* of the round, and not the middle of it
+                if (powerUp instanceof DoubleOrNothing) {
+                    ((DoubleOrNothing) powerUp).onGameStateChange(this, player);
+                }
+            }
+        }
+    }
 }
