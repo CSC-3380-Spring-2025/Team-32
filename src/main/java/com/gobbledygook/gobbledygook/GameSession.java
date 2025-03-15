@@ -13,6 +13,7 @@ public class GameSession {
     private UUID id;
     /* players must always be sorted based on Player.score */
     private List<Player> players;
+    private List<Definition> fakeDefinitions;
     private Round currentRound;
     private GamePhase state;
 
@@ -34,5 +35,8 @@ public class GameSession {
                 return p2.getScore() - p1.getScore();
             }
         });
+
+    public void addFakeDefinition(Definition definition){
+        fakeDefinitions.add(definition);
     }
 }
