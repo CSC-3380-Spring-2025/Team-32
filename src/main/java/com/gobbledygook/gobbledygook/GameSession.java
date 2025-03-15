@@ -3,6 +3,7 @@ package com.gobbledygook.gobbledygook;
 import lombok.Data;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 
@@ -10,6 +11,7 @@ import java.util.UUID;
 @Data
 public class GameSession {
     private UUID id;
+    /* players must always be sorted based on Player.score */
     private List<Player> players;
     private Round currentRound;
     private GamePhase state;
@@ -23,5 +25,14 @@ public class GameSession {
 
     public void addPlayer(Player player) {
         players.add(player);
+    }
+
+    public void sortPlayers() {
+        players.sort(new Comparator<Player>() {
+            @Override
+            public int compare(Player p1, Player p2) {
+                return p2.getScore() - p1.getScore();
+            }
+        });
     }
 }
