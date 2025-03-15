@@ -25,4 +25,9 @@ public class GameSession {
     public void addPlayer(Player player) {
         players.add(player);
     }
+
+    
+    public void addFakeDefinition(Definition definition){
+        fakeDefinitions.add(definition)
+    }
 }
