@@ -36,6 +36,7 @@ public class GameLoop {
     static void wordChainPhase() {}
     static void definitionPhase() {}
     static void votingPhase(GameSession gameSession) {
+        
         System.out.println("Voting phase has ended. Processing votes...");
         gameSession.getCurrentRound().processVotes(gameSession);
     }
