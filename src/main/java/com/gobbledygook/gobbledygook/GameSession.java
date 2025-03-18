@@ -35,6 +35,7 @@ public class GameSession {
                 return p2.getScore() - p1.getScore();
             }
         });
+    }
 
 
     public void addFakeDefinition(Definition definition){
