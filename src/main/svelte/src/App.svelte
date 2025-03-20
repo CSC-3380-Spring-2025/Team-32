@@ -1,18 +1,18 @@
 <script lang="ts">
-    let username = "";
+    let username: string = "";
     let socket: WebSocket | null = null;
 
-    async function joinGame() {
+    async function joinGame(): void {
         setupWebSocket();
-        const response = await fetch(`http://localhost:8080/join?username=${encodeURIComponent(username)}`, {
+        const response: Response = await fetch(`http://localhost:8080/join?username=${encodeURIComponent(username)}`, {
             method: "POST",
         });
 
-        const data = await response.json();
+        const data: Record<string, unknown> = await response.json();
         console.log("Server response:", data);
     }
 
-    function setupWebSocket() {
+    function setupWebSocket(): void {
         socket = new WebSocket("ws://localhost:8080/websocket");
 
         socket.onopen = () => {
