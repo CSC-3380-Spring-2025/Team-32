@@ -21,11 +21,11 @@ public class GameLoop {
             /* generic voting procedure that sends VOTING_PHASE message to clients along with list of choices
             Then listens for votes from clients and tallies them up.
              */
-            votingPhase();
+            // votingPhase();
             /* Sends STORY_PHASE message and listens for story submissions */
             storyPhase();
             /* same as previous voting phase, but the options are the story submissions instead of definitions */
-            votingPhase();
+            // votingPhase();
             /* Signals the end of the round to all players */
             roundEnd();
             firstRound = false;
