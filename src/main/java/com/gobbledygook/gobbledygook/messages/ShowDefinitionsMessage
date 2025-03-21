@@ -16,9 +16,8 @@ public class StartDefinitionPhaseMessage {
     
     fakeDefinitions.append(realDefinition);
     Collections.shuffle(fakeDefinitions);
-    public ShowDefinitionPhaseMessage(String defintion) {
+    public ShowDefinitionPhaseMessage(List definitionsList) {
         
-        this.word = word;
         TextMessage message = new TextMessage("Now that the definitions are submitted, they will be shown on screen");
         for(i : fakeDefinitions){
             Textmessage newMessage = new Message(fakeDefinitions.get(i));

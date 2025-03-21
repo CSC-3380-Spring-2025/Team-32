@@ -8,12 +8,14 @@ import com.gobbledygook.gobbledygook.ServerWebSocketHandler;
 import com.gobbledygook.gobbledygook.messages.WordChainMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.jdbc.JdbcTemplateAutoConfiguration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.io.IOException;
 import java.util.List;
@@ -30,6 +32,9 @@ public class JoinGameController {
 
     @Autowired
     private ServerWebSocketHandler webSocketHandler;
+
+    @Autowired
+    JdbcTemplate jdbcTemplate;
 
     /* Takes URL parameter username, checks if that username is already in the session, and adds the player
     Returns nothing if player already exists, returns representation of the new Player object if successful.
@@ -61,4 +66,11 @@ public class JoinGameController {
 
         return ResponseEntity.status(HttpStatus.OK).body("{\"message\": \"Successfully joined game\"}");
     }
+    
+    public class wordSelect {
+        String Query = ("Select word FROM words ORDER BY RANDOM() Limit 1");
+        private string word = jdbcTemplate.query(Query);
+        webSocketHandler.sendMessage(word);
+    }
+
 }
