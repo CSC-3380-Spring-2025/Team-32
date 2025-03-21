@@ -1,6 +1,7 @@
 <script lang="ts">
     let username: string = "";
     let socket: WebSocket | null = null;
+    let serverResponse: string = "";
 
     async function joinGame(): void {
         setupWebSocket();
@@ -9,6 +10,7 @@
         });
 
         const data: Record<string, unknown> = await response.json();
+        serverResponse = data.message ? String(data.message) : "Unexpected response from server";
         console.log("Server response:", data);
     }
 
@@ -36,3 +38,6 @@
 
 <input type="text" bind:value={username} placeholder="Enter username" />
 <button on:click={joinGame}>Join Game</button>
+{#if serverResponse}
+    <p>{serverResponse}</p>
+{/if}
