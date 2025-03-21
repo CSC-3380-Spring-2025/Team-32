@@ -3,6 +3,7 @@ package com.gobbledygook.gobbledygook;
 import lombok.Data;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 
@@ -10,6 +11,7 @@ import java.util.UUID;
 @Data
 public class GameSession {
     private UUID id;
+    /* players must always be sorted based on Player.score */
     private List<Player> players;
     private List<Definition> fakeDefinitions;
     private Round currentRound;
@@ -25,8 +27,33 @@ public class GameSession {
     public void addPlayer(Player player) {
         players.add(player);
     }
-    
-    public void addFakeDefinition(Definition definition){
-        fakeDefinitions.add(definition)
+
+    public void sortPlayers() {
+        players.sort(new Comparator<Player>() {
+            @Override
+            public int compare(Player p1, Player p2) {
+                return p2.getScore() - p1.getScore();
+            }
+        });
     }
+
+
+    public void addFakeDefinition(Definition definition){
+        fakeDefinitions.add(definition);
+    }
+
+    // interates thru players' powerups, and calls onGameStateChange for the powerups (so they activate at the right game state)
+    public void setState(GameState newState) {
+        this.state = newState;
+    
+        for (Player player : players) {
+            for (PowerUp powerUp : player.getPowerUps()) {
+                // this is so it only activates at the *end* of the round, and not the middle of it
+                if (powerUp instanceof DoubleOrNothing) {
+                    ((DoubleOrNothing) powerUp).onGameStateChange(this, player);
+                }
+            }
+        }
+    }
+
 }
