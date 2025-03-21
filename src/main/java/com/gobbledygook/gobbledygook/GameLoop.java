@@ -36,6 +36,8 @@ public class GameLoop {
     static void lobbyPhase() {}
     static void wordChainPhase() {}
     static void definitionPhase() {}
+    static void votingPhase(GameSession gameSession) {
+        
     static void votingPhase(GameSession gameSession, List<Object> votingOptions) {
         for(int i; i < votingOptions.size(); i++){
             TextMessage message = new TextMessage(votingOptions.get(i).toString());
