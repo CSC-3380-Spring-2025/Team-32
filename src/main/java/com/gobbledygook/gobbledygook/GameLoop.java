@@ -1,5 +1,6 @@
 package com.gobbledygook.gobbledygook;
-
+import java.util.List;
+import org.springframework.web.socket.TextMessage;
 
 /* This class is not meant to be used yet. It's purpose is to document how the main game loop works
     Each functionality will be implemented later on.
@@ -20,11 +21,11 @@ public class GameLoop {
             /* generic voting procedure that sends VOTING_PHASE message to clients along with list of choices
             Then listens for votes from clients and tallies them up.
              */
-            votingPhase();
+            // votingPhase();
             /* Sends STORY_PHASE message and listens for story submissions */
             storyPhase();
             /* same as previous voting phase, but the options are the story submissions instead of definitions */
-            votingPhase();
+            // votingPhase();
             /* Signals the end of the round to all players */
             roundEnd();
             firstRound = false;
@@ -35,7 +36,14 @@ public class GameLoop {
     static void lobbyPhase() {}
     static void wordChainPhase() {}
     static void definitionPhase() {}
-    static void votingPhase(GameSession gameSession) {
+    static void votingPhase(GameSession gameSession, List<Object> votingOptions) {
+        for(int i; i < votingOptions.size(); i++){
+            TextMessage message = new TextMessage(votingOptions.get(i).toString());
+            gameSession.sendMessage(message);
+        }
+
+
+
         System.out.println("Voting phase has ended. Processing votes...");
         gameSession.getCurrentRound().processVotes(gameSession);
     }

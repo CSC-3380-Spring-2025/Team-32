@@ -1,0 +1,31 @@
+package com.gobbledygook.gobbledygook.messages;
+import lombok.Data;
+import org.springframework.web.socket.TextMessage;
+import com.gobbledygook.gobbledygook.GamePhase;
+import com.gobbledygook.gobbledygook.GameSession;
+/*
+ * This WebSocket message is broadcasted, along with the definitions themselves, to all clients after the definition submission phase is over. 
+ * Before the message is sent, the fake definitions must be shuffled with the real definition.
+ * 
+ */
+
+@Data    
+public class StartDefinitionPhaseMessage {
+    private final GamePhase phase = GamePhase.DEFINITION_PHASE;
+    private String realDefinition;
+    
+    fakeDefinitions.append(realDefinition);
+    Collections.shuffle(fakeDefinitions);
+    public ShowDefinitionPhaseMessage(List definitionsList) {
+        
+        TextMessage message = new TextMessage("Now that the definitions are submitted, they will be shown on screen");
+        for(i : fakeDefinitions){
+            Textmessage newMessage = new Message(fakeDefinitions.get(i));
+            
+            
+        }
+
+        }
+    }
+
+
