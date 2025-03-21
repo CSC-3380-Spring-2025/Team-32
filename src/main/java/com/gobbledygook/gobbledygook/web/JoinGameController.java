@@ -9,6 +9,8 @@ import com.gobbledygook.gobbledygook.messages.WordChainMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.jdbc.JdbcTemplateAutoConfiguration;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,12 +40,14 @@ public class JoinGameController {
     Returns nothing if player already exists, returns representation of the new Player object if successful.
      */
     @PostMapping
-    public Player addPlayer(@RequestParam String username) {
+    public ResponseEntity<String> addPlayer(@RequestParam String username) {
+        if (session.getPlayers().size() >= 4)
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"message\": \"Lobby full\"}");
         UUID id = UUID.nameUUIDFromBytes(username.getBytes());
         List<Player> currentPlayers = session.getPlayers();
         for (Player player : currentPlayers) {
             if (player.getId().equals(id)) {
-                return null;
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"message\": \"Username taken\"}");
             }
         }
 
@@ -60,10 +64,10 @@ public class JoinGameController {
             }
         }
 
-        return newPlayer;
+        return ResponseEntity.status(HttpStatus.OK).body("{\"message\": \"Successfully joined game\"}");
     }
     
-    public class wordSelect {
+    public void wordSelect {
         String Query = ("Select word FROM words ORDER BY RANDOM() Limit 1");
         private string word = jdbcTemplate.query(Query);
         webSocketHandler.sendMessage(word);
