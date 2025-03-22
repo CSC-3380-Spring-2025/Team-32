@@ -5,12 +5,12 @@
   let ws;
 
   onMount(() => {
-    ws = new WebSocket('ws://localhost:8080/websocket'); // Updated URL to match Spring Boot WebSocket endpoint
-
-    ws.onmessage = (event) => {
-        word = event.data;
-    };
-});
+      ws = new WebSocket('ws://localhost:8080/websocket'); // Updated URL to match Spring Boot WebSocket endpoint
+  
+      ws.onmessage = (event) => {
+          word = event.data;
+      };
+  });
 
   function submitWord() {
     if (ws && ws.readyState === WebSocket.OPEN) {
