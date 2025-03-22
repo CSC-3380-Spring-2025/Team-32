@@ -1,5 +1,8 @@
 package com.gobbledygook.gobbledygook.messages;
 import lombok.Data;
+
+import java.util.List;
+
 import org.springframework.web.socket.TextMessage;
 import com.gobbledygook.gobbledygook.GamePhase;
 import com.gobbledygook.gobbledygook.GameSession;
@@ -10,22 +13,22 @@ import com.gobbledygook.gobbledygook.GameSession;
  */
 
 @Data    
-public class StartDefinitionPhaseMessage {
+public class ShowDefinitionPhaseMessage { 
     private final GamePhase phase = GamePhase.DEFINITION_PHASE;
     private String realDefinition;
     
-    fakeDefinitions.append(realDefinition);
-    Collections.shuffle(fakeDefinitions);
-    public ShowDefinitionPhaseMessage(List definitionsList) {
-        
+    
+    public ShowDefinitionPhaseMessage(String realDefinition) {
+        GameSession.fakeDefinitions.append(realDefinition);
+        Collections.shuffle(GameSession.fakeDefinitions);
         TextMessage message = new TextMessage("Now that the definitions are submitted, they will be shown on screen");
-        for(i : fakeDefinitions){
+        for(int i : definitionsList){
             Textmessage newMessage = new Message(fakeDefinitions.get(i));
             
             
         }
 
         }
+    
     }
-
 
