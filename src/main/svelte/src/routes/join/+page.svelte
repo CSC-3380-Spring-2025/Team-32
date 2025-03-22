@@ -1,4 +1,4 @@
-<script lang="ts">
+xesh<script lang="ts">
     let username: string = "";
     let socket: WebSocket | null = null;
     let serverResponse: string = "";
@@ -41,3 +41,8 @@
 {#if serverResponse}
     <p>{serverResponse}</p>
 {/if}
+
+
+<style>
+@import './app.css';
+</style>
