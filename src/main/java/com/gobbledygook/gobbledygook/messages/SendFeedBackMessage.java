@@ -3,6 +3,7 @@ import lombok.Data;
 import org.springframework.web.socket.TextMessage;
 import com.gobbledygook.gobbledygook.GamePhase;
 import com.gobbledygook.gobbledygook.GameSession;
+import com.gobbledygook.gobbledygook.Player;
 
 /* 
 This WebSocket message is used to notify each client whether they received a point in each round or not. 
@@ -14,18 +15,35 @@ The message can contain a different data depending on the type of round and if t
 @Data 
 public class SendFeedBackMessage {
     private final GamePhase currentRound = GameSession.getCurrentRound();
-    private final point;
-    
-    switch(currentRound) {
-        case WORD_CHAIN_PHASE:
-        case DEFINITION_PHASE,
-        case STORY_PHASE,
-        case VOTING_PHASE,
-        case ROUND_START,
-        case ROUND_END,
+    private final boolean win;
+    private final Player player;
+    public SendFeedBackMessage(GamePhase currentRound, boolean win, Player player){
+        if (currentRound == WORD_CHAIN_PHASE && win == true){
+            player.points += 1;
+            TextMessage message = new TextMessage(player.getUsername() + "Recieved a point for the word chain phase"); 
+        }
 
+        if (currentRound == WORD_CHAIN_PHASE && win == false){
+            TextMessage message = new TextMessage(player.getUsername() + "Did not receive a point for the word chain phase"); 
+        }
+
+        if (currentRound == DEFINITION_PHASE && win == true){
+            player.points += 1;
+            TextMessage message = new TextMessage(player.getUsername() + "Recieved a point for the definition phase");
+        }
+
+        if (currentRound == DEFINITION_PHASE && win == false){
+            TextMessage message = new TextMessage(player.getUsername() + "Did not receive a point for the definition phase");
+        }
+        
+        if (currentRound == STORY_PHASE && win == true){
+            player.points += 1;
+            TextMessage message = new TextMessage(player.getUsername() + "Recieved a point for the story phase");
+        }
+
+        if (currentRound == STORY_PHASE && win == false){
+            TextMessage message = new TextMessage(player.getUsername() + "Did not receive a point for the story phase");
+        } 
     }
-    
-    TextMessage message = new TextMessage("");
         
     }
