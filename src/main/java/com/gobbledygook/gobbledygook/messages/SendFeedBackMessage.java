@@ -14,34 +14,31 @@ The message can contain a different data depending on the type of round and if t
 
 @Data 
 public class SendFeedBackMessage {
-    private final GamePhase currentRound = GameSession.getCurrentRound();
-    private final boolean win;
-    private final Player player;
+    private final GamePhase currentRound = getCurrentRound();
+    private  boolean win;
+    private  Player player;
     public SendFeedBackMessage(GamePhase currentRound, boolean win, Player player){
-        if (currentRound == WORD_CHAIN_PHASE && win == true){
-            player.points += 1;
+        if (currentRound.equals(GamePhase.WORD_CHAIN_PHASE) && win == true){
             TextMessage message = new TextMessage(player.getUsername() + "Recieved a point for the word chain phase"); 
         }
 
-        if (currentRound == WORD_CHAIN_PHASE && win == false){
+        if (currentRound.equals(GamePhase.WORD_CHAIN_PHASE) && win == false){
             TextMessage message = new TextMessage(player.getUsername() + "Did not receive a point for the word chain phase"); 
         }
 
-        if (currentRound == DEFINITION_PHASE && win == true){
-            player.points += 1;
+        if (currentRound.equals(GamePhase.DEFINITION_PHASE) && win == true){
             TextMessage message = new TextMessage(player.getUsername() + "Recieved a point for the definition phase");
         }
 
-        if (currentRound == DEFINITION_PHASE && win == false){
+        if (currentRound.equals(GamePhase.DEFINITION_PHASE) && win == false){
             TextMessage message = new TextMessage(player.getUsername() + "Did not receive a point for the definition phase");
         }
         
-        if (currentRound == STORY_PHASE && win == true){
-            player.points += 1;
+        if (currentRound.equals(GamePhase.STORY_PHASE) && win == true){
             TextMessage message = new TextMessage(player.getUsername() + "Recieved a point for the story phase");
         }
 
-        if (currentRound == STORY_PHASE && win == false){
+        if (currentRound.equals(GamePhase.STORY_PHASE) && win == false){
             TextMessage message = new TextMessage(player.getUsername() + "Did not receive a point for the story phase");
         } 
     }

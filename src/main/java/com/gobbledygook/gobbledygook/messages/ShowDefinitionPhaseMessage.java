@@ -17,12 +17,12 @@ public class ShowDefinitionPhaseMessage {
     private final GamePhase phase = GamePhase.DEFINITION_PHASE;
     private String realDefinition;
     
-    GameSession.fakeDefinitions.append(realDefinition);
-    Collections.shuffle(fakeDefinitions);
-    public ShowDefinitionPhaseMessage(List definitionsList) {
-        
+    
+    public ShowDefinitionPhaseMessage(String realDefinition) {
+        GameSession.fakeDefinitions.append(realDefinition);
+        Collections.shuffle(GameSession.fakeDefinitions);
         TextMessage message = new TextMessage("Now that the definitions are submitted, they will be shown on screen");
-        for(i : definitionsList){
+        for(int i : definitionsList){
             Textmessage newMessage = new Message(fakeDefinitions.get(i));
             
             
