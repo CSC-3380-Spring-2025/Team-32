@@ -19,14 +19,14 @@ public class ShowDefinitionPhaseMessage {
     
     
     public ShowDefinitionPhaseMessage(String realDefinition) {
-        GameSession.fakeDefinitions.append(realDefinition);
-        Collections.shuffle(GameSession.fakeDefinitions);
-        TextMessage message = new TextMessage("Now that the definitions are submitted, they will be shown on screen");
-        for(int i : definitionsList){
-            Textmessage newMessage = new Message(fakeDefinitions.get(i));
-            
-            
-        }
+//        GameSession.fakeDefinitions.append(realDefinition);
+//        Collections.shuffle(GameSession.fakeDefinitions);
+//        TextMessage message = new TextMessage("Now that the definitions are submitted, they will be shown on screen");
+//        for(int i : definitionsList){
+//            Textmessage newMessage = new Message(fakeDefinitions.get(i));
+//
+//
+//        }
 
         }
     
