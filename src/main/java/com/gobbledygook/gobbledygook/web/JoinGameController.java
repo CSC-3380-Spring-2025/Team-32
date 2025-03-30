@@ -67,9 +67,11 @@ public class JoinGameController {
         return ResponseEntity.status(HttpStatus.OK).body("{\"message\": \"Successfully joined game\"}");
     }
     
-    public void wordSelect {
-        String Query = ("Select word FROM words ORDER BY RANDOM() Limit 1");
-        private string word = jdbcTemplate.query(Query);
+    public void wordSelect() {
+        String Query = "Select word FROM words ORDER BY RANDOM() Limit 1";
+        var url = "jdbc:sqlite:memory:myDb?cache=shared";
+
+        String word = jdbcTemplate.execute(Query);
         webSocketHandler.sendMessage(word);
     }
 
