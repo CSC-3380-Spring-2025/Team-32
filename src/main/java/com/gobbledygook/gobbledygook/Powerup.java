@@ -6,7 +6,7 @@ import lombok.Data;
 import java.util.UUID;
 
 @Data
-abstract class PowerUp {
+public abstract class PowerUp {
     protected Player ownerOfPowerup;
     protected String powerUpName;
     protected int numberOfUsesLeft;
@@ -17,5 +17,5 @@ abstract class PowerUp {
         this.numberOfUsesLeft = numberOfUsesLeft;
     }
 
-    abstract void usePowerup();
+   public abstract boolean usePowerup();
 }

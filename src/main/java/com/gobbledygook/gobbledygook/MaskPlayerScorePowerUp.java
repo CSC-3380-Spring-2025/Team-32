@@ -8,13 +8,21 @@ public class MaskPlayerScorePowerUp extends PowerUp {
 
     public MaskPlayerScorePowerUp(Player ownerOfPowerup, String powerUpName, int numberOfUsesLeft) {
         super(ownerOfPowerup, powerUpName, numberOfUsesLeft);
-        
+
     }
 
     @Override
-    void usePowerup() {
-       isActivated = true;
+    public boolean usePowerup() {
+        if (numberOfUsesLeft > 0) {
+            numberOfUsesLeft--;
+            isActivated = true;
+            return true;
+
+        } else {
+            isActivated = false;
+            return false;
+        }
+
     }
 
-    
 }
