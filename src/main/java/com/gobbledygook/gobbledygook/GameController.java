@@ -2,10 +2,7 @@ package com.gobbledygook.gobbledygook;
 
 import java.util.UUID;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import lombok.Data;
 
@@ -23,5 +20,10 @@ public class GameController {
     public String castVote(@RequestParam UUID playerId, @RequestParam UUID definitionId) {
         gameSession.getCurrentRound().castVote(playerId, definitionId);
         return "Vote registered successfully!";
+    }
+
+    @GetMapping("/getWord")
+    public String getWord() {
+        return gameSession.getCurrentRound().getTargetWord();
     }
 }
