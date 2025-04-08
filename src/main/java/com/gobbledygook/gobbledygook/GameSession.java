@@ -28,6 +28,13 @@ public class GameSession {
         players.add(player);
     }
 
+    public Player getPlayerById(UUID id) {
+        for (Player player : players) {
+            if (player.getId() == id)
+                return player;
+        }
+    }
+
     public void sortPlayers() {
         players.sort(new Comparator<Player>() {
             @Override

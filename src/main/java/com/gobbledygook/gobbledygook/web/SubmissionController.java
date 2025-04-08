@@ -62,11 +62,9 @@ public class SubmissionController {
             }
 
             if (word.charAt(0) == targetWord.charAt(targetWord.length() - 1) && dictionary.contains(word)) {
-                for (Player player : session.getPlayers()) {
-                    if (player.getId() == playerId)
-                        player.setScore(player.getScore() + 1);
+                Player player = session.getPlayerById(playerId);
+                player.setScore(player.getScore() + 1);
                 }
-            }
         } catch (IOException e) {
             System.err.println("Error reading dictionary");
         }
