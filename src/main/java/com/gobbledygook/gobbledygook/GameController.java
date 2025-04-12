@@ -29,6 +29,11 @@ public class GameController {
         return gameSession.getCurrentRound().getTargetWord();
     }
 
+    @GetMapping("/getPhase")
+    public String getPhase() {
+        return gameSession.getState().name();
+    }
+
     @GetMapping("/getPowerup")
     public String getPowerup() {
         /* Gives a random powerup to the requesting user, represented just as a String.
