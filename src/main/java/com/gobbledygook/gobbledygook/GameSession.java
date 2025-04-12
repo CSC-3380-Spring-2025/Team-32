@@ -37,6 +37,9 @@ public class GameSession {
         });
     }
 
+    public Player getTopPlayer() {
+        return players[0];
+    }
 
     public void addFakeDefinition(Definition definition){
         fakeDefinitions.add(definition);
