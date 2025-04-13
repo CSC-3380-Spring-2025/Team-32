@@ -1,5 +1,4 @@
 package com.gobbledygook.gobbledygook;
-import java.io.InputStream;
 import java.util.HashSet;
 import java.util.Scanner;
 import lombok.Data;
@@ -14,10 +13,13 @@ public class SpellChecker {
     }
 
     private void loadWords(String filePath){
-        // Load words from file
-        Scanner file = new Scanner(new File(filePath));
-        while(file.hasNext()){
-            words.add(file.nextLine().trim().toLowerCase());
+        try(Scanner file = new Scanner(new File(filePath))){
+            // Load words from file
+            while(file.hasNext()){
+                words.add(file.nextLine().trim().toLowerCase());
+            }
+        }catch(Exception e){
+            System.out.println("Oh No! " + e.getMessage());
         }
     }
 
