@@ -1,14 +1,19 @@
 package com.gobbledygook.gobbledygook;
 
 
-import java.util.HashMap;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import lombok.Data;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /* Represents a single round, tracking submissions and votes */
+@Data
 public class Round {
     private int roundNumber;
     private String targetWord;
@@ -19,11 +24,31 @@ public class Round {
 
     public Round() {
         this.roundNumber = 0;
-        this.targetWord = "";
+        try {
+            this.targetWord = getRandomWord();
+        } catch (IOException e) {
+            System.err.println("Error reading the dictionary file: " + e.getMessage());
+        }
         this.wordChainSubmissions = new ArrayList<>();
         this.definitions = new ArrayList<>();
         this.stories = new ArrayList<>();
         this.votes = new HashMap<>();
+    }
+
+    private static String getRandomWord() throws IOException {
+        Resource resource = new ClassPathResource("wordlist");
+        InputStream inputStream = resource.getInputStream();
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        List<String> words = new ArrayList<>();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            words.add(line);
+        }
+        Random random = new Random();
+        int randomIndex = random.nextInt(words.size());
+
+        return words.get(randomIndex);
     }
 
     public void addWordChain(UUID playerId, String word) {
