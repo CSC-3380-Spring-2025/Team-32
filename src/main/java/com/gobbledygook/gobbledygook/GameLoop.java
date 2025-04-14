@@ -40,7 +40,9 @@ public class GameLoop {
 
     /* stub methods so that the class compiles - will implement later */
     static void lobbyPhase() {}
-    static void wordChainPhase() {}
+    static void wordChainPhase() {
+        
+    }
     static void definitionPhase() {}
     static void votingPhase(GameSession gameSession) {
         

@@ -9,6 +9,7 @@ public class MaskPlayerScorePowerUp extends PowerUp {
     public MaskPlayerScorePowerUp(Player ownerOfPowerup, String powerUpName, int numberOfUsesLeft) {
         super(ownerOfPowerup, powerUpName, numberOfUsesLeft);
 
+
     }
 
     @Override
@@ -24,5 +25,6 @@ public class MaskPlayerScorePowerUp extends PowerUp {
         }
 
     }
+
 
 }
