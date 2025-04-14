@@ -11,9 +11,11 @@ public class DoubleOrNothing extends PowerUp {
     }
 
 //    @Override
-    public void usePowerup() {
+    public boolean usePowerup() {
         if (numberOfUsesLeft > 0) {
             numberOfUsesLeft--;
+            return true;
+            
 
 //            targetRound = gameSession.getCurrentRound(); // Store the current round
 
@@ -21,6 +23,7 @@ public class DoubleOrNothing extends PowerUp {
             // System.out.println(user.getName() + " activated Double or Nothing for Round " + targetRound.getRoundNumber());
         } else {
             System.out.println("No uses left for Double or Nothing!");
+            return false;
         }
     }
 

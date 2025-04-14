@@ -1,7 +1,9 @@
 package com.gobbledygook.gobbledygook.web;
 
 import com.gobbledygook.gobbledygook.GameSession;
+import com.gobbledygook.gobbledygook.PeekDefinitionPowerUp;
 import com.gobbledygook.gobbledygook.Player;
+import com.gobbledygook.gobbledygook.PowerUp;
 import com.gobbledygook.gobbledygook.Submission;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -37,6 +39,16 @@ public class SubmissionController {
                 break;
             case "definition":
                 session.getCurrentRound().addDefinition(submission.getPlayerId(), submission.getContent());
+                // to do: trigger websocket message for peek definition powerup
+                for (Player player: session.getPlayers()){
+                    for (PowerUp powerup:player.getPowerups()){
+                        if (powerup instanceof PeekDefinitionPowerUp && powerup.usePowerup()){
+                            // todo: send a submission to player with powerup
+                            
+                        }
+                    }
+                    
+                }
                 break;
             case "story":
                 session.getCurrentRound().addStory(submission.getPlayerId(), submission.getContent());
