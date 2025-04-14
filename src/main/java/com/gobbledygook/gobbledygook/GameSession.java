@@ -39,7 +39,7 @@ public class GameSession {
         players.sort(new Comparator<Player>() {
             @Override
             public int compare(Player p1, Player p2) {
-                return p2.getScore() - p1.getScore();
+                return p2.getVisibleScore() - p1.getVisibleScore();
             }
         });
     }
