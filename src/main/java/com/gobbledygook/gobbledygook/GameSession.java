@@ -45,7 +45,7 @@ public class GameSession {
     }
 
     public Player getTopPlayer() {
-        return players[0];
+        return players.get(0);
     }
 
     public void addFakeDefinition(Definition definition){
