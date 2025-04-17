@@ -64,7 +64,7 @@ public class JoinGameController {
             }
         }
 
-        return ResponseEntity.status(HttpStatus.OK).body("{\"message\": \"Successfully joined game\"}");
+        return ResponseEntity.status(HttpStatus.OK).body("{\"message\": \"Successfully joined game\", \"id\": \"" + id.toString() + "\"}");
     }
     
 //    public void wordSelect {

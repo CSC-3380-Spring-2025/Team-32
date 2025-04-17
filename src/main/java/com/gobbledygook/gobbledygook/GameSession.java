@@ -30,9 +30,10 @@ public class GameSession {
 
     public Player getPlayerById(UUID id) {
         for (Player player : players) {
-            if (player.getId() == id)
+            if (player.getId().equals(id))
                 return player;
         }
+        return null;
     }
 
     public void sortPlayers() {
