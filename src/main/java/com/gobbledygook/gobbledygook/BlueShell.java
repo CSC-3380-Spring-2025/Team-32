@@ -2,8 +2,6 @@
 package com.gobbledygook.gobbledygook;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.gobbledygook.gobbledygook.GameSession;
-
 public class BlueShell extends PowerUp {
     
     @Autowired
@@ -26,8 +24,10 @@ public class BlueShell extends PowerUp {
             topPlayer.setScore(score);
             // uncomment if messege needed 
             // System.out.println(user.getName() + " activated Double or Nothing for Round " + targetRound.getRoundNumber());
+            return true;
         } else {
             System.out.println("No uses left for Double or Nothing!");
+            return false;
         }
     }
 }
