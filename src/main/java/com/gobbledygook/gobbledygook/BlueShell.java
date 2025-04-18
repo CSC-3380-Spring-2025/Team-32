@@ -8,7 +8,8 @@ public class BlueShell extends PowerUp {
         super(ownerOfPowerup, "Blue Shell", 3);
     }
 
-    public void usePowerup() {
+    
+    public boolean usePowerup() {
         if (numberOfUsesLeft > 0) {
             numberOfUsesLeft--;
 
