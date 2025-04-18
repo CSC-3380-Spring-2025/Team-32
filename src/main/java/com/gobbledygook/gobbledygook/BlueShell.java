@@ -1,7 +1,14 @@
 // blue shell power up
 package com.gobbledygook.gobbledygook;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.gobbledygook.gobbledygook.GameSession;
 
 public class BlueShell extends PowerUp {
+    
+    @Autowired
+    GameSession gameSession;
+    
     private Round targetRound; // Store the round when the power-up is activated
 
     public BlueShell(Player ownerOfPowerup) {
