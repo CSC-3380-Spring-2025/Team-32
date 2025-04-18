@@ -4,16 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public class BlueShell extends PowerUp {
     
-    @Autowired
+    @Autowired 
     GameSession gameSession;
-    
+
     private Round targetRound; // Store the round when the power-up is activated
 
     public BlueShell(Player ownerOfPowerup) {
         super(ownerOfPowerup, "Blue Shell", 3);
     }
 
-    
+        
     public boolean usePowerup() {
         if (numberOfUsesLeft > 0) {
             numberOfUsesLeft--;
@@ -22,7 +22,9 @@ public class BlueShell extends PowerUp {
             int score = topPlayer.getScore();
             score -= 10; // arbitrarily set to -10, can change if needed
             topPlayer.setScore(score);
-            // uncomment if messege needed 
+            
+            BlueShell.targetRound = gameSession.getCurrentRound();
+            // uncomment if message needed 
             // System.out.println(user.getName() + " activated Double or Nothing for Round " + targetRound.getRoundNumber());
             return true;
         } else {
