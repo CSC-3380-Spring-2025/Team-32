@@ -20,7 +20,8 @@ public class BlueShell extends PowerUp {
         if (numberOfUsesLeft > 0) {
             numberOfUsesLeft--;
 
-            topPlayer = gameSession.getTopPlayer(); // get top player
+            Player topPlayer = gameSession.getTopPlayer(); // get top player
+            
             topPlayer.score = topPlayer.score - 10; // arbitrarily set to -10, can change if needed
 
             // uncomment if messege needed 
