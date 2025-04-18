@@ -6,9 +6,10 @@ public class BlueShell extends PowerUp {
     
     @Autowired 
     GameSession gameSession;
-
-    private Round targetRound; // Store the round when the power-up is activated
-
+    /*
+    private Round targetRound; 
+    Store the round when the power-up is activated
+    */
     public BlueShell(Player ownerOfPowerup) {
         super(ownerOfPowerup, "Blue Shell", 3);
     }
@@ -23,7 +24,10 @@ public class BlueShell extends PowerUp {
             score -= 10; // arbitrarily set to -10, can change if needed
             topPlayer.setScore(score);
             
-            BlueShell.targetRound = gameSession.getCurrentRound();
+            /* targetRound = gameSession.getCurrentRound();
+            Target round variable ( not needed) 
+            */
+            
             // uncomment if message needed 
             // System.out.println(user.getName() + " activated Double or Nothing for Round " + targetRound.getRoundNumber());
             return true;
