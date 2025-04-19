@@ -1,5 +1,6 @@
 <script lang="ts">
     import { goto } from '$app/navigation';
+    import { userUUID } from '$lib/stores/user';
     let username: string = "";
     let socket: WebSocket | null = null;
     let serverResponse: string = "";
@@ -13,6 +14,8 @@
         const data: Record<string, unknown> = await response.json();
         serverResponse = data.message ? String(data.message) : "Unexpected response from server";
         console.log("Server response:", data);
+        userUUID.set(data.id);
+
     }
 
     function setupWebSocket(): void {
