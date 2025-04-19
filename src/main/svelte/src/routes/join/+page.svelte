@@ -1,4 +1,5 @@
-xesh<script lang="ts">
+<script lang="ts">
+    import { goto } from '$app/navigation';
     let username: string = "";
     let socket: WebSocket | null = null;
     let serverResponse: string = "";
@@ -24,6 +25,12 @@ xesh<script lang="ts">
 
         socket.onmessage = (event) => {
             console.log("Message from server:", event.data);
+            if (event.data == "lobby full") {
+                console.log("Lobby full, redirecting...");
+		// goto("/shiritori");
+		// just navigating to fake_definition screen before shiritori screen is finished
+		goto("/fake_definition");
+	    }
         };
 
         socket.onerror = (error) => {

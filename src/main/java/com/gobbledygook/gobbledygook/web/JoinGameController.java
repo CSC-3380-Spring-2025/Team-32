@@ -1,21 +1,17 @@
 package com.gobbledygook.gobbledygook.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.gobbledygook.gobbledygook.GamePhase;
 import com.gobbledygook.gobbledygook.GameSession;
 import com.gobbledygook.gobbledygook.Player;
 import com.gobbledygook.gobbledygook.ServerWebSocketHandler;
-import com.gobbledygook.gobbledygook.messages.WordChainMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.jdbc.JdbcTemplateAutoConfiguration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.io.IOException;
 import java.util.List;
@@ -58,7 +54,7 @@ public class JoinGameController {
         if (session.getPlayers().size() == 4) {
             try {
                 ObjectMapper objectMapper = new ObjectMapper();
-                webSocketHandler.sendMessage(objectMapper.writeValueAsString(new WordChainMessage("foobaz")));
+                webSocketHandler.sendMessage("lobby full");
             } catch (IOException e) {
                 System.err.println("Error sending WebSocket message");
             }
