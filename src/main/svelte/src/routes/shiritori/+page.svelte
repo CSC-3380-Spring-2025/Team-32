@@ -11,7 +11,7 @@
   import { get } from 'svelte/store';
   
   let word = "Waiting for word..."; 
-  let definition = "";
+  let wordchain = "";
   let ws;
 
 
@@ -33,8 +33,8 @@
 
       const submission: Submission = {
           playerId: get(userUUID) ?? '',
-          type: 'definition',
-          content: definition
+          type: 'wordchain',
+          content: wordchain
       };
 
 const response = await fetch('http://localhost:8080/submit', {
@@ -55,12 +55,12 @@ goto("/vote");
 <main class="container">
   <h1>Word: {word}</h1>
   
-  <label for="definition">Your Definition:</label>
+  <label for="wordchain">Your Word:</label>
   <input 
-      id="definition"
+      id="wordchain"
       type="text" 
-      bind:value={definition} 
-      placeholder="Enter your definition..."
+      bind:value={wordchain} 
+      placeholder="Enter your word..."
   />
 
   <button on:click={submitWordChain}>Submit</button>
