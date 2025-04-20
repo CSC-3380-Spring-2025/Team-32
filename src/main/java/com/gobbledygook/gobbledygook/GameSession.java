@@ -33,10 +33,9 @@ public class GameSession {
             if (player.getId().equals(id))
                 return player;
         }
-
+      
         return null;
         throw new RuntimeException("Player's ID not found:" + id);
-
     }
 
     public void sortPlayers() {

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -39,6 +40,12 @@ public class GameController {
     @GetMapping("/getWord")
     public String getWord() {
         return gameSession.getCurrentRound().getTargetWord();
+    }
+
+    @PostMapping("/submitWordChain")
+    public String addWordChain(@RequestParam UUID playerId, @RequestParam String submittedWordString) {
+        gameSession.getCurrentRound().addWordChain(playerId, submittedWordString);
+        return "Word submited successfully!";
     }
 
     @GetMapping("/getPhase")
