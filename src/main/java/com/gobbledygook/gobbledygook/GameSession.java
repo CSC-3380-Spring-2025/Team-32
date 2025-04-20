@@ -30,10 +30,13 @@ public class GameSession {
 
     public Player getPlayerById(UUID id) {
         for (Player player : players) {
-            if (player.getId() == id)
+            if (player.getId().equals(id))
                 return player;
         }
+
+        return null;
         throw new RuntimeException("Player's ID not found:" + id);
+
     }
 
     public void sortPlayers() {
