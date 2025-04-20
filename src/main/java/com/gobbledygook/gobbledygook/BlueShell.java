@@ -1,17 +1,20 @@
 // blue shell power up
 package com.gobbledygook.gobbledygook;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class BlueShell extends PowerUp {
-    private Round targetRound; // Store the round when the power-up is activated
-    private GameSession gameSession;
-
-    public BlueShell(Player ownerOfPowerup, GameSession gameSession) {
+    
+    @Autowired 
+    GameSession gameSession;
+    /*
+    private Round targetRound; 
+    Store the round when the power-up is activated
+    */
+    public BlueShell(Player ownerOfPowerup) {
         super(ownerOfPowerup, "Blue Shell", 3);
         this.gameSession = gameSession;
     }
 
-
-    @Override
     public boolean usePowerup() {
         if (numberOfUsesLeft > 0) {
             numberOfUsesLeft--;
@@ -26,7 +29,6 @@ public class BlueShell extends PowerUp {
         } else {
             System.out.println("No uses left for Blue Shell!");
             return false; // failed to use
-
         }
     }
 }
