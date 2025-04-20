@@ -1,50 +1,97 @@
-<script>
-  import { onMount } from 'svelte';
-  let word = '';
-  let newWord = '';
+<script lang="ts">
+  type Submission = {
+    playerId: string; 
+    type: 'wordchain' | 'definition' | 'story'; 
+    content: string;
+  };
+
+  import { onMount } from "svelte";
+  import { goto } from '$app/navigation';
+  import { userUUID } from '$lib/stores/user';
+  import { get } from 'svelte/store';
+  
+  let word = "Waiting for word..."; 
+  let wordchain = "";
   let ws;
 
+
   onMount(() => {
-      ws = new WebSocket('ws://localhost:8080/websocket'); // Updated URL to match Spring Boot WebSocket endpoint
-  
-      ws.onmessage = (event) => {
-          word = event.data;
-      };
+  (async () => {
+    try {
+      const response = await fetch('http://localhost:8080/game/getWord');
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      word = await response.text(); // This automatically triggers re-render
+    } catch (error) {
+      console.error('Failed to fetch word:', error);
+    }
+  })();
   });
 
-  function submitWord() {
-    if (ws && ws.readyState === WebSocket.OPEN) {
-      ws.send(newWord);
-      newWord = '';
-    }
+  async function submitWordChain() {
+
+      const submission: Submission = {
+          playerId: get(userUUID) ?? '',
+          type: 'wordchain',
+          content: wordchain
+      };
+
+const response = await fetch('http://localhost:8080/submit', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify(submission),
+});
+
+goto("/vote");
+
+// const result = await response.json();
+// console.log('Submit response:', result);
   }
 </script>
 
 <main class="container">
-  <h1>Current Word: {word}</h1>
-  <input type="text" bind:value={newWord} placeholder="Enter your word..." />
-  <button on:click={submitWord}>Submit</button>
+  <h1>Word: {word}</h1>
+  
+  <label for="wordchain">Your Word:</label>
+  <input 
+      id="wordchain"
+      type="text" 
+      bind:value={wordchain} 
+      placeholder="Enter your word..."
+  />
+
+  <button on:click={submitWordChain}>Submit</button>
 </main>
 
 <style>
   .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      font-family: Arial, sans-serif;
   }
 
   input {
-    margin: 10px 0;
-    padding: 10px;
-    font-size: 1rem;
+      padding: 8px;
+      font-size: 1rem;
+      width: 300px;
   }
 
   button {
-    padding: 10px 20px;
-    font-size: 1rem;
-    cursor: pointer;
+      padding: 10px 15px;
+      font-size: 1rem;
+      cursor: pointer;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+  }
+
+  button:hover {
+      background-color: #0056b3;
   }
 </style>

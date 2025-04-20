@@ -41,6 +41,12 @@ public class GameController {
         return gameSession.getCurrentRound().getTargetWord();
     }
 
+    @PostMapping("/submitWordChain")
+    public String addWordChain(@RequestParam UUID playerId, @RequestParam String submittedWordString) {
+        gameSession.getCurrentRound().addWordChain(playerId, submittedWordString);
+        return "Word submited successfully!";
+    }
+
     @GetMapping("/getPhase")
     public String getPhase() {
         return gameSession.getState().name();
