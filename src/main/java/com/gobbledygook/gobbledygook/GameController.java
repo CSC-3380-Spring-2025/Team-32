@@ -1,9 +1,12 @@
 package com.gobbledygook.gobbledygook;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import lombok.Data;
@@ -19,14 +22,29 @@ public class GameController {
     }
 
     @PostMapping("/submitVote")
-    public String castVote(@RequestParam UUID playerId, @RequestParam UUID definitionId) {
-        gameSession.getCurrentRound().castVote(playerId, definitionId);
-        return "Vote registered successfully!";
+    public ResponseEntity<String> castVote(@RequestParam UUID playerId) {
+        /* We might not even need the voting code in the Round object */
+        Player player = gameSession.getPlayerById(playerId);
+        player.setScore(player.getScore()+1);
+//        gameSession.getCurrentRound().castVote(playerId, definitionId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/getDefinitions")
+    /* This endpoint is to get a list of definitions for players to vote on */
+    public List<Definition> getDefinitions() {
+        return gameSession.getCurrentRound().getDefinitions();
     }
 
     @GetMapping("/getWord")
     public String getWord() {
         return gameSession.getCurrentRound().getTargetWord();
+    }
+
+    @PostMapping("/submitWordChain")
+    public String addWordChain(@RequestParam UUID playerId, @RequestParam String submittedWordString) {
+        gameSession.getCurrentRound().addWordChain(playerId, submittedWordString);
+        return "Word submited successfully!";
     }
 
     @GetMapping("/getPhase")

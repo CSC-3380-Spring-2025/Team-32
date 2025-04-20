@@ -12,28 +12,23 @@ public class BlueShell extends PowerUp {
     */
     public BlueShell(Player ownerOfPowerup) {
         super(ownerOfPowerup, "Blue Shell", 3);
+        this.gameSession = gameSession;
     }
 
-        
     public boolean usePowerup() {
         if (numberOfUsesLeft > 0) {
             numberOfUsesLeft--;
 
             Player topPlayer = gameSession.getTopPlayer(); // get top player
-            int score = topPlayer.getScore();
-            score -= 10; // arbitrarily set to -10, can change if needed
-            topPlayer.setScore(score);
-            
-            /* targetRound = gameSession.getCurrentRound();
-            Target round variable ( not needed) 
-            */
-            
-            // uncomment if message needed 
-            // System.out.println(user.getName() + " activated Double or Nothing for Round " + targetRound.getRoundNumber());
-            return true;
+            topPlayer.setScore(topPlayer.getScore() - 10); // reduce score
+
+            // Optional log
+            // System.out.println(ownerOfPowerup.getName() + " activated Blue Shell!");
+
+            return true; // success
         } else {
-            System.out.println("No uses left for Double or Nothing!");
-            return false;
+            System.out.println("No uses left for Blue Shell!");
+            return false; // failed to use
         }
     }
 }
