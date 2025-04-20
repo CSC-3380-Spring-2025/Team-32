@@ -1,71 +1,52 @@
 <script lang="ts">
-    import {browser} from '$app/environment';
-    let voting_options: string[] = [];
-    let socket: WebSocket | null = null;
+import {browser} from '$app/environment';
 
-    async function submitVote(index: number): Promise<void> {
-        try {
-            const response = await fetch(
-                `http://localhost:8080/submitVote?playerId=${playerUUID}&definitionId=${index}`,
-                { method: "POST" }
-            );
+type Definition = {
+  ownerId: string;
+  text: string;
+  id: string;
+  votes: number;
+};
 
-            if (!response.ok) {
-                console.error("Vote submission failed:", response.statusText);
-            } else {
-                console.log(`Vote for option ${index} sent successfully.`);
-            }
-        } catch (error) {
-            console.error("Error submitting vote:", error);
-        }
+
+let voting_options: Definition[] = [];
+let socket: WebSocket | null = null;
+
+async function submitVote(ownerId: string): Promise<void> {
+  try {
+      const response = await fetch(`http://localhost:8080/game/submitVote?playerId=${ownerId}`, {
+	method: "POST"
+    });
+
+    if (!response.ok) {
+      console.error("Vote submission failed:", response.statusText);
+    } else {
+	console.log(`Vote for definition submitted by ${ownerId} sent successfully.`);
     }
+  } catch (error) {
+    console.error("Error submitting vote:", error);
+  }
+}
 
-    function setupWebSocket(): void {
-        socket = new WebSocket("ws://localhost:8080/websocket");
+async function fetchVotingOptions() {
+  try {
+      const response = await fetch('http://localhost:8080/game/getDefinitions', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
 
-        socket.onopen = () => {
-            console.log("WebSocket connected");
-        };
+    voting_options = await response.json();
+    console.log('Fetched definitions:', voting_options);
+  } catch (error) {
+    console.error('Failed to fetch definitions:', error);
+  }
+}
 
-	    /* The WebSocket message this page is listening for is of the form:
-	    {
-		"type": "voting_options",
-		"data": [
-		    "voting option 1",
-		    "voting option 2",
-		    "voting option 3"
-		]
-	    }
-	    First we check if the message type is the expected one (voting_options), and then we store the voting options in an array to iterate through and render
-	     */
-        socket.onmessage = (event: MessageEvent): void => {
-            try {
-                const message = JSON.parse(event.data) as { type: string; data: string[] };
-                
-                if (message.type === "voting_options" && Array.isArray(message.data)) {
-                    voting_options = message.data;
-                } else {
-		    console.error("Wrong message type");
-		}
-            } catch (error) {
-                console.error("Error parsing WebSocket message:", error);
-            }
-        };
-
-        socket.onerror = (error) => {
-            console.error("WebSocket error:", error);
-        };
-
-        socket.onclose = () => {
-            console.log("WebSocket closed");
-        };
-    }
-
-
-    if (browser) {
-        setupWebSocket();
-    }
-
+if (browser) {
+  fetchVotingOptions();
+}
 </script>
 
 <h3>Vote for an Option:</h3>
@@ -74,7 +55,7 @@
     <p>Waiting for voting options...</p>
 {:else}
     {#each voting_options as option, index}
-        <button on:click={() => submitVote(index)}>{option}</button>
+        <button on:click={() => submitVote(option.ownerId)}>{option.text}</button>
     {/each}
 {/if}
 

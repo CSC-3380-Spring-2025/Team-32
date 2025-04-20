@@ -10,6 +10,7 @@ public class BlueShell extends PowerUp {
         this.gameSession = gameSession;
     }
 
+
     @Override
     public boolean usePowerup() {
         if (numberOfUsesLeft > 0) {
@@ -25,6 +26,7 @@ public class BlueShell extends PowerUp {
         } else {
             System.out.println("No uses left for Blue Shell!");
             return false; // failed to use
+
         }
     }
 }

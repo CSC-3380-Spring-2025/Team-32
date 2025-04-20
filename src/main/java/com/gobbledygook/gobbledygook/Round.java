@@ -2,6 +2,7 @@ package com.gobbledygook.gobbledygook;
 
 
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
@@ -16,6 +17,8 @@ import java.util.stream.Collectors;
 @Data
 public class Round {
     private int roundNumber;
+    @Autowired
+    private GameSession gameSession;
     private String targetWord;
     private List<WordChain> wordChainSubmissions; // assuming we'll wanna implement it as a class instead
     private List<Definition> definitions; // i've implemented a definition class
@@ -64,7 +67,11 @@ public class Round {
     }
     
     public void castVote(UUID playerId, UUID definitionId) {
+        /* instead of adding to the votes object, just add a point to a player's score */
+        /* might want to delete this line later, if it's not needed */
         votes.put(playerId, definitionId);
+        Player player = gameSession.getPlayerById(playerId);
+        player.setScore(player.getScore()+1);
     }
 
     public void processVotes(GameSession gameSession) {

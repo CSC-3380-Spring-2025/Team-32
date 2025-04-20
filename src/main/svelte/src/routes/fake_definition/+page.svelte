@@ -1,27 +1,54 @@
-<script>
+<script lang="ts">
+    type Submission = {
+	playerId: string; 
+	type: 'wordchain' | 'definition' | 'story'; 
+	content: string;
+    };
+
     import { onMount } from "svelte";
+    import { goto } from '$app/navigation';
+    import { userUUID } from '$lib/stores/user';
+    import { get } from 'svelte/store';
     
-    let word = "Waiting for word..."; // Default text before receiving a word
+    let word = "Waiting for word..."; 
     let definition = "";
     let ws;
 
+
     onMount(() => {
-        ws = new WebSocket("ws://localhost:8080/websocket"); // Connect to backend WebSocket
-
-        ws.onmessage = (event) => {
-            word = event.data; // Update the word when received from backend
-        };
-
-        ws.onclose = () => {
-            console.log("WebSocket disconnected");
-        };
+    (async () => {
+      try {
+        const response = await fetch('http://localhost:8080/game/getWord');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        word = await response.text(); // This automatically triggers re-render
+      } catch (error) {
+        console.error('Failed to fetch word:', error);
+      }
+    })();
     });
 
-    function submitDefinition() {
-        if (definition.trim() && ws.readyState === WebSocket.OPEN) {
-            ws.send(JSON.stringify({ word, definition })); // Send word & definition to backend
-            definition = ""; // Clear input field
-        }
+    async function submitDefinition() {
+
+        const submission: Submission = {
+            playerId: get(userUUID) ?? '',
+            type: 'definition',
+            content: definition
+        };
+
+	const response = await fetch('http://localhost:8080/submit', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(submission),
+	});
+
+	goto("/vote");
+
+	// const result = await response.json();
+	// console.log('Submit response:', result);
     }
 </script>
 

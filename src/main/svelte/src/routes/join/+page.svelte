@@ -1,4 +1,6 @@
-xesh<script lang="ts">
+<script lang="ts">
+    import { goto } from '$app/navigation';
+    import { userUUID } from '$lib/stores/user';
     let username: string = "";
     let socket: WebSocket | null = null;
     let serverResponse: string = "";
@@ -12,6 +14,8 @@ xesh<script lang="ts">
         const data: Record<string, unknown> = await response.json();
         serverResponse = data.message ? String(data.message) : "Unexpected response from server";
         console.log("Server response:", data);
+        userUUID.set(data.id);
+
     }
 
     function setupWebSocket(): void {
@@ -24,6 +28,12 @@ xesh<script lang="ts">
 
         socket.onmessage = (event) => {
             console.log("Message from server:", event.data);
+            if (event.data == "lobby full") {
+                console.log("Lobby full, redirecting...");
+		// goto("/shiritori");
+		// just navigating to fake_definition screen before shiritori screen is finished
+		goto("/fake_definition");
+	    }
         };
 
         socket.onerror = (error) => {
