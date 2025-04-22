@@ -5,7 +5,6 @@ import lombok.Data;
 
 import java.util.UUID;
 
-
 @Data
 public abstract class PowerUp {
     protected Player ownerOfPowerup;
@@ -19,6 +18,4 @@ public abstract class PowerUp {
     }
 
    public abstract boolean usePowerup();
-
 }
-
