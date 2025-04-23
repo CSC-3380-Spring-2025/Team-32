@@ -1,5 +1,5 @@
 <script lang="ts">
-import {browser} from '$app/environment';
+import { goto } from '$app/navigation';
 
 type Definition = {
   ownerId: string;
@@ -11,6 +11,7 @@ type Definition = {
 
 let voting_options: Definition[] = [];
 let socket: WebSocket | null = null;
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 async function submitVote(ownerId: string): Promise<void> {
   try {
@@ -26,6 +27,7 @@ async function submitVote(ownerId: string): Promise<void> {
   } catch (error) {
     console.error("Error submitting vote:", error);
   }
+  goto("/leaderboard");
 }
 
 async function fetchVotingOptions() {
@@ -44,14 +46,18 @@ async function fetchVotingOptions() {
   }
 }
 
-if (browser) {
-  fetchVotingOptions();
+(async () => {
+  while (voting_options.length < 4) {
+      fetchVotingOptions();
+      await sleep(2500);
 }
+})();
+
 </script>
 
 <h3>Vote for an Option:</h3>
 
-{#if voting_options.length === 0}
+{#if voting_options.length < 4}
     <p>Waiting for voting options...</p>
 {:else}
     {#each voting_options as option, index}

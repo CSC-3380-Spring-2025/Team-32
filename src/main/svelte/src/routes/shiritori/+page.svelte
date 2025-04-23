@@ -37,19 +37,17 @@
           content: wordchain
       };
 
-const response = await fetch('http://localhost:8080/submit', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify(submission),
-});
+  const response = await fetch('http://localhost:8080/submit', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(submission),
+  });
 
-goto("/vote");
+  goto("/fake_definition");
 
-// const result = await response.json();
-// console.log('Submit response:', result);
-  }
+}
 </script>
 
 <main class="container">
