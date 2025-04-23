@@ -18,31 +18,31 @@
 
     }
 
-    function setupWebSocket(): void {
-        socket = new WebSocket("ws://localhost:8080/websocket");
+    async function setupWebSocket(): Promise<void> {
+        return new Promise((resolve, reject) => {
+            socket = new WebSocket("ws://localhost:8080/websocket");
 
-        socket.onopen = () => {
-            console.log("WebSocket connected");
+            socket.onopen = () => {
+		console.log("WebSocket connected");
 	    //            socket?.send(username);
-        };
+            };
 
-        socket.onmessage = (event) => {
-            console.log("Message from server:", event.data);
-            if (event.data == "lobby full") {
-                console.log("Lobby full, redirecting...");
-		// goto("/shiritori");
-		// just navigating to fake_definition screen before shiritori screen is finished
-		goto("/fake_definition");
-	    }
-        };
+            socket.onmessage = (event) => {
+		console.log("Message from server:", event.data);
+		if (event.data == "lobby full") {
+                    console.log("Lobby full, redirecting...");
+		    goto("/shiritori");
+		}
+            };
 
-        socket.onerror = (error) => {
-            console.error("WebSocket error:", error);
-        };
-
-        socket.onclose = () => {
-            console.log("WebSocket closed");
-        };
+            socket.onerror = (error) => {
+		console.error("WebSocket error:", error);
+            };
+	    
+            socket.onclose = () => {
+		console.log("WebSocket closed");
+            };
+	});
     }
 </script>
 

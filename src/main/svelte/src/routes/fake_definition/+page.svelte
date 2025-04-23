@@ -22,7 +22,7 @@
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-        word = await response.text(); // This automatically triggers re-render
+        word = await response.text();
       } catch (error) {
         console.error('Failed to fetch word:', error);
       }
