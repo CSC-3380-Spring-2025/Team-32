@@ -2,6 +2,8 @@ package com.gobbledygook.gobbledygook;
 
 import java.util.UUID;
 
+import lombok.Data;
+@Data
 public class Story {
     private UUID playerId;
     private String text;
