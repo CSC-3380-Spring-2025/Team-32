@@ -53,14 +53,31 @@ async function fetchVotingOptions() {
 })();
 
 </script>
+<div class = "wrapper">
+  <h3>Vote for an Option:</h3>
 
-<h3>Vote for an Option:</h3>
+  {#if voting_options.length < 4}
+      <p>Waiting for voting options...</p>
+  {:else}
+      {#each voting_options as option, index}
+          <button on:click={() => submitVote(option.playerId)}>{option.text}</button>
+      {/each}
+  {/if}
+</div>
 
-{#if voting_options.length < 4}
-    <p>Waiting for voting options...</p>
-{:else}
-    {#each voting_options as option, index}
-        <button on:click={() => submitVote(option.playerId)}>{option.text}</button>
-    {/each}
-{/if}
+<style>
+.wrapper{
+  max-width: 75%;
+  margin: auto;
+  text-align: center;
+
+  button{
+    display: block;
+    margin: auto;
+    margin-top: 1em;
+    font-size: 17px;
+    padding: 1ex;
+  }
+}
+</style>
 
