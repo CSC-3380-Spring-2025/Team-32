@@ -6,7 +6,7 @@
     let serverResponse: string = "";
 
     async function joinGame(): void {
-        setupWebSocket();
+        await setupWebSocket();
         const response: Response = await fetch(`http://localhost:8080/join?username=${encodeURIComponent(username)}`, {
             method: "POST",
         });
@@ -24,7 +24,7 @@
 
             socket.onopen = () => {
 		console.log("WebSocket connected");
-	    //            socket?.send(username);
+	    resolve();
             };
 
             socket.onmessage = (event) => {
