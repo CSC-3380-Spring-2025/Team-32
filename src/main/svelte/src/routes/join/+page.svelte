@@ -155,10 +155,17 @@
         max-width: 75%;
         margin: auto;
         position: relative;
+        
     }
 
     .input-form{
         text-align: center;
+        margin-top: 300px;
+        font-size: 35px;
+        input{
+            font-size: 35px;
+            margin: 1ex;
+        }
     }
 
     .shadowBox {
