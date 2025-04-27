@@ -45,7 +45,7 @@
 		body: JSON.stringify(submission),
 	});
 
-	goto("/vote");
+	goto("/vote_story");
 
 	// const result = await response.json();
 	// console.log('Submit response:', result);

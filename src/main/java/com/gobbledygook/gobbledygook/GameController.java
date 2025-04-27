@@ -36,6 +36,12 @@ public class GameController {
         return gameSession.getCurrentRound().getDefinitions();
     }
 
+    @GetMapping("/getStories")
+    /* This endpoint is to get a list of definitions for players to vote on */
+    public List<Story> getFunnyStories() {
+        return gameSession.getCurrentRound().getStories();
+    }
+
     @GetMapping("/getWord")
     public String getWord() {
         return gameSession.getCurrentRound().getTargetWord();
