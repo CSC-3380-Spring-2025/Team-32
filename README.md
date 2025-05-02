@@ -3,7 +3,7 @@
 Project Manager: Joseph Strauss (cuppajoe123)\
 Communications Lead: William Morales (WilliamMorales1)\
 Git Master: Calvin Gavin (CrawfishChowder)\
-Design Lead: Kade Whitman\
+Design Lead: Kade Whitman (kmwhitman)\
 Quality Assurance Tester: Julian Madrigal (jmadripz)
 
 # About Our Software
