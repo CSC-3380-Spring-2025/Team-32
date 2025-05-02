@@ -13,7 +13,7 @@
   let word = "Waiting for word..."; 
   let wordchain = "";
   let ws;
-  let timeLimit = 100;
+  let timeLimit = 10;
   let timeRemaining = timeLimit;
   let enteredWords: string[] = [];
   let effect = "";
@@ -53,7 +53,7 @@
   }
 
   async function nextScreen(){
-    goto("/fake_definition");
+    goto("/leaderboard?nextpage=fake_definition");
   }
 
 
