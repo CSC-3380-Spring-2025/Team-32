@@ -10,6 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import lombok.Data;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @RequestMapping("/game")
@@ -90,5 +93,13 @@ public class GameController {
         } else if (powerup == "hide_name") {
             /* hide the requesting player's name from the leaderboard, making them immune to blue shell */
         }
+
     }
+
+    @GetMapping("/reset")
+    public void resetGame() {
+        gameSession.reset();
+    }
+    
+
 }

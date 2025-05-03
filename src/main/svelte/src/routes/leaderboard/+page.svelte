@@ -7,6 +7,11 @@
   let bottom_half = [];
   let loading = true;
 
+  async function resetGame(){
+    await fetch('http://localhost:8080/game/reset');
+    goto('/join');
+  }
+
   async function fetchLeaderboard() {
     try {
       const response = await fetch('http://localhost:8080/leaderboard');
@@ -22,6 +27,8 @@
   }
 
   fetchLeaderboard();
+
+
 </script>
 
 <style>
@@ -112,6 +119,11 @@
     <div>
       <button class = "continuebutton" on:click="{goto("/"+$page.url.searchParams.get("nextpage"))}">Continue</button>
     </div>
+    {:else}
+    <div>
+      <button class = "continuebutton" on:click="{resetGame}">Play again?</button>
+    </div>
+    
     {/if}
   {/if}
 </div>

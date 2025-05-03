@@ -51,8 +51,8 @@
 </script>
 
 <div class="wrapper">
-    <div class="shadowBox"><span>supercalifragilisticexpialidocious</span></div>
-    <div class="instructions">Instructions go here</div>
+    <div class="shadowBox"><span>Gobbledygook</span></div>
+    <div class="instructions">Type a name and join the game!</div>
     <div class="input-form">
         <input type="text" bind:value={username} placeholder="Enter username" />
         <button on:click={joinGame}>Join Game</button>

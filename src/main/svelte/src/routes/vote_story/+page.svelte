@@ -54,7 +54,9 @@ async function fetchVotingOptions() {
 
 </script>
 <div class = "wrapper">
-  <h3>Vote for an Option:</h3>
+  <div class = "instructions">
+    The academy award for the best story goes to...
+  </div>
 
   {#if voting_options.length < 4}
       <p>Waiting for voting options...</p>
@@ -78,6 +80,16 @@ async function fetchVotingOptions() {
     font-size: 17px;
     padding: 1ex;
   }
+
+  .instructions {
+        background-color: #0a41d8;
+        text-align: center;
+
+        padding: 5px;
+        border: 2px solid green;
+        border-radius: 10px;
+    }
+
 }
 </style>
 

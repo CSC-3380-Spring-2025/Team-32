@@ -22,11 +22,8 @@ public class GameSession {
     private Map<UUID,Set<String>> shiritoriWords;
 
     public GameSession() {
-        this.id = UUID.randomUUID();
-        this.players = new ArrayList<>();
-        this.currentRound = new Round();
-        this.state = GamePhase.ROUND_START;
-        this.shiritoriWords = new HashMap<>();
+        reset();
+
     }
 
     public void addPlayer(Player player) {
@@ -71,6 +68,15 @@ public class GameSession {
 //                }
 //            }
         }
+    }
+
+    public void reset() {
+        this.id = UUID.randomUUID();
+        this.players = new ArrayList<>();
+        this.currentRound = new Round();
+        this.state = GamePhase.ROUND_START;
+        this.shiritoriWords = new HashMap<>();
+        this.fakeDefinitions = new ArrayList<>();
     }
 
 }
