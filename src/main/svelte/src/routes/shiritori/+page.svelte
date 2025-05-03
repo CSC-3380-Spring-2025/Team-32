@@ -53,9 +53,9 @@
   }
 
   async function nextScreen(){
+    goto("/fake_definition");
     goto("/leaderboard?nextpage=fake_definition");
   }
-
 
   async function submitWordChain() {
     effect = "";
