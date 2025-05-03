@@ -50,6 +50,11 @@ public class GameController {
         return gameSession.getCurrentRound().getTargetWord();
     }
 
+    @GetMapping("/getRealDefinition")
+    public String getRealDefinition() {
+        return gameSession.getCurrentRound().getTargetDefinition();
+    }
+
     @PostMapping("/submitWordChain")
     public String addWordChain(@RequestParam UUID playerId, @RequestParam String submittedWordString) {
         gameSession.getCurrentRound().addWordChain(playerId, submittedWordString);
