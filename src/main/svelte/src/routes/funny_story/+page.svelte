@@ -12,7 +12,7 @@
     
     let word = "Waiting for word..."; 
     let funny_story = "";
-    let ws;
+    let errorMessage = "";
 
 
     onMount(() => {
@@ -30,33 +30,43 @@
     });
 
     async function submitFunnyStory() {
-
-        const submission: Submission = {
+        const submission = {
             playerId: get(userUUID) ?? '',
             type: 'story',
             content: funny_story
         };
+        
+        if (!submission.content.includes(word)) {
+            errorMessage = "Your submission must contain the word!";
+            console.log("Submission denied beacuse it doesn't have the word")
+            console.log(submission.content);
+            return;
+        } else {
+            console.log ("Submission accepted")
+        }
 
-	const response = await fetch('http://localhost:8080/submit', {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify(submission),
-	});
+        const response = await fetch('http://localhost:8080/submit', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(submission),
+        });
 
-	goto("/vote_story");
-
-	// const result = await response.json();
-	// console.log('Submit response:', result);
+        goto("/vote_story");
     }
 </script>
 
 <main class="container">
     <div class = "instructions">
-        Make a story with the word!
+        Make a funny story with the word displayed below. The funniest story will win!
     </div>
     <h1>{word}</h1>
+    <div>
+        {#if errorMessage}
+            <p>{errorMessage}</p>
+        {/if}
+    </div>
     
     <input 
         id="story"
