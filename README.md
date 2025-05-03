@@ -15,7 +15,7 @@ Our project is a competitive and fun game between 4 players where they must try 
 - Windows
 # Important Links
 Kanban Board: [link](https://github.com/orgs/CSC-3380-Spring-2025/projects/4)\
-Designs: [link](https://discord.gg/uvwRvnqs) (in our discord)
+Designs: [link](https://github.com/CSC-3380-Spring-2025/Team-32/tree/funny-story-input-checks/designs)\
 
 # How to Run Dev and Test Environment
 
@@ -35,10 +35,23 @@ Designs: [link](https://discord.gg/uvwRvnqs) (in our discord)
 
 ## Commands
 
+Clone the latest upadated version of the files under the main branch. 
+Open the terminal and enter in the following command.
+
 ```sh
 ./mvnw spring-boot:run
 ```
 
+Then open a separete terminal and enter the following commands.
+
 ```sh
+npm install #if not already installed
+cd src/main/svelte
 npm run dev
 ```
+
+This should give you a link to http://localhost:5173/join where you can begin playing!
+
+## Testing
+
+This game is intended to be played by 4 players, locally. To test the game with just one person, simply open 4 incognito tabs with http://localhost:5173/join and enter in inputs for each player. 
