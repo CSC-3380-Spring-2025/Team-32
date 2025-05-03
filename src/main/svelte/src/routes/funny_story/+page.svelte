@@ -53,9 +53,11 @@
 </script>
 
 <main class="container">
-    <h1>Word: {word}</h1>
+    <div class = "instructions">
+        Make a story with the word!
+    </div>
+    <h1>{word}</h1>
     
-    <label for="story">Your story:</label>
     <input 
         id="story"
         type="text" 
@@ -89,6 +91,15 @@
         color: white;
         border: none;
         border-radius: 5px;
+    }
+
+    .instructions {
+        background-color: #0a41d8;
+        text-align: center;
+
+        padding: 5px;
+        border: 2px solid green;
+        border-radius: 10px;
     }
 
     button:hover {
