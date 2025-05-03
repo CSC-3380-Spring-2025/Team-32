@@ -62,36 +62,46 @@ public class GameController {
     }
 
     @GetMapping("/getPowerup")
-    public String getPowerup() {
+    public ResponseEntity<String> getPowerup() {
         /* Gives a random powerup to the requesting user, represented just as a String.
         The frontend receives this message and renders an appropriate screen. The user
         then gets to press the Use Powerup button, which sends a POST request to the server
          */
-        final String[] powerups = {"double_or_nothing", "blue_shell", "hide_name"};
+        final String[] powerups = {"double_or_nothing", "blue_shell", "bonus_points"};
         Random random = new Random();
-        return powerups[random.nextInt(3)];
+        return ResponseEntity.ok(powerups[random.nextInt(3)]);
     }
 
     @PostMapping("/usePowerup")
-    public void usePowerup(@RequestParam UUID playerId, @RequestParam String powerup) {
-        if (powerup == "double_or_nothing") {
+    public ResponseEntity<String> usePowerup(@RequestParam UUID playerId, @RequestParam String powerup) {
+        if (powerup.equals("double_or_nothing")) {
             /* 50/50 chance of doubling players points or starting from zero */
             Random random = new Random();
             Player player = gameSession.getPlayerById(playerId);
             if (random.nextBoolean()) {
                 player.setScore(player.getScore()*2);
+                gameSession.sortPlayers();
+                return ResponseEntity.ok(powerup + ": Double Points!");
             } else {
                 player.setScore(0);
+                gameSession.sortPlayers();
+                return ResponseEntity.ok(powerup + ": You lost it all :(");
             }
-            gameSession.sortPlayers();
-        } else if (powerup == "blue_shell") {
+        } else if (powerup.equals("blue_shell")) {
             // subtract 2 points from the top player
             Player topPlayer = gameSession.getPlayers().get(0);
             topPlayer.setScore(topPlayer.getScore()-2);
             gameSession.sortPlayers();
+            return ResponseEntity.ok(powerup);
             /* subtract points from player in first place */
-        } else if (powerup == "hide_name") {
-            /* hide the requesting player's name from the leaderboard, making them immune to blue shell */
+        } else if (powerup.equals("bonus_points")) {
+            /* Add two points to score */
+            Player player = gameSession.getPlayerById(playerId);
+            player.setScore(player.getScore()+2);
+            gameSession.sortPlayers();
+            return ResponseEntity.ok(powerup);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
     }

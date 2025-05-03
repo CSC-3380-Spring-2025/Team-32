@@ -27,7 +27,7 @@ async function submitVote(ownerId: string): Promise<void> {
   } catch (error) {
     console.error("Error submitting vote:", error);
   }
-  goto("/funny_story");
+  goto("/powerup");
 }
 
 async function fetchVotingOptions() {
