@@ -15,9 +15,20 @@ Our project is a competitive and fun game between 4 players where they must try 
 - Windows
 # Important Links
 Kanban Board: [Kanban Link](https://github.com/orgs/CSC-3380-Spring-2025/projects/4)\
-Designs: [Design Folder Link](https://github.com/CSC-3380-Spring-2025/Team-32/tree/funny-story-input-checks/designs)
+Designs: [Design Folder Link](https://github.com/CSC-3380-Spring-2025/Team-32/tree/funny-story-input-checks/designs)\
+Styles Guide(s): [Syle Guidde Link](https://github.com/CSC-3380-Spring-2025/Team-32/blob/funny-story-input-checks/Code%20Standards%20%26%20Style%20Guide.pdf)
 
 # How to Run Dev and Test Environment
+
+## Dependencies
+- Svelte, version 5.28
+- Java, version 21.0.1
+- Spring Boot, version 3.4.3
+- SQLite, version ???
+- Maven, version 3.9.9
+- npm, verion 10.9.0
+- Vite, version 6.2.2
+### Downloading Dependencies
 
 ### Frontend
 - [Svelte](https://svelte.dev)
@@ -32,6 +43,9 @@ Designs: [Design Folder Link](https://github.com/CSC-3380-Spring-2025/Team-32/tr
 ### Build Tools
 - [Maven](https://maven.apache.org/)
 - [npm](https://www.npmjs.com/)
+
+### IDEs
+- [VSCode](https://code.visualstudio.com/download) (not strictly needed, as you can also run the commands straight from the command line)
 
 ## Commands
 
@@ -54,3 +68,43 @@ This should give you a link to http://localhost:5173/join where you can begin pl
 ## Testing
 
 This game is intended to be played by 4 players, locally. To test the game with just one person, simply open 4 incognito tabs with http://localhost:5173/join and enter in inputs for each player. 
+
+
+
+
+
+Styles Guide(s): [link]
+
+# How to Run Dev and Test Environment
+
+## Dependencies
+- List all dependencies here
+- Don't forget to include versions
+### Downloading Dependencies
+Describe where to download the dependencies here. Some will likely require a web download. Provide links here. For IDE extensions, make sure your project works with the free version of them, and detail which IDE(s) these are available in. 
+
+## Commands
+Describe how the commands and process to launch the project on the main branch in such a way that anyone working on the project knows how to check the affects of any code they add.
+
+```sh
+Example terminal command syntax
+```
+
+It is very common in these sections to see code in peculiar boxes to help them stand out. Check the markdown section of the Project Specifications to see how to add more / customize these.
+
+```python
+def code_highlight_example(m: int, m: float, s: str) -> str:
+	return s + str(n*m)
+```
+
+```java
+public static void main(String[] args){
+	System.out.println("Hello, World!");
+}
+```
+
+```c#
+static void Main(){
+	Console.WriteLine("Hello, World!");
+}
+```
