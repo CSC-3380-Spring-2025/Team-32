@@ -14,8 +14,8 @@ Our project is a competitive and fun game between 4 players where they must try 
 - Linux
 - Windows
 # Important Links
-Kanban Board: [link](https://github.com/orgs/CSC-3380-Spring-2025/projects/4)\
-Designs: [link](https://github.com/CSC-3380-Spring-2025/Team-32/tree/funny-story-input-checks/designs)\
+Kanban Board: [Kanban Link](https://github.com/orgs/CSC-3380-Spring-2025/projects/4)\
+Designs: [Design Folder Link](https://github.com/CSC-3380-Spring-2025/Team-32/tree/funny-story-input-checks/designs)
 
 # How to Run Dev and Test Environment
 
