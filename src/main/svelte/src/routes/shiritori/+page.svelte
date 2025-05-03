@@ -13,6 +13,10 @@
   let word = "Waiting for word..."; 
   let wordchain = "";
   let ws;
+  let timeLimit = 10;
+  let timeRemaining = timeLimit;
+  let enteredWords: string[] = [];
+  let effect = "";
 
 
   onMount(() => {
@@ -23,45 +27,108 @@
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       word = await response.text(); // This automatically triggers re-render
+      startTimer();
     } catch (error) {
       console.error('Failed to fetch word:', error);
     }
   })();
   });
 
+  function startTimer(){
+    enteredWords = [];
+    timeRemaining = timeLimit;
+    let timer = setInterval(()=>{
+      timeRemaining--;
+      if (timeRemaining <= 0){
+        clearInterval(timer);
+      }
+    }, 1000);
+  }
+
+  async function handleEnter(event){
+    if (event.key == "Enter"){
+      submitWordChain();
+    }
+
+  }
+
+  async function nextScreen(){
+    goto("/leaderboard?nextpage=fake_definition");
+  }
+
+
   async function submitWordChain() {
+    effect = "";
+    const submission: Submission = {
+        playerId: get(userUUID) ?? '',
+        type: 'wordchain',
+        content: wordchain
+    };
 
-      const submission: Submission = {
-          playerId: get(userUUID) ?? '',
-          type: 'wordchain',
-          content: wordchain
-      };
+    const response = await fetch('http://localhost:8080/submit', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(submission),
+    });
 
-  const response = await fetch('http://localhost:8080/submit', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(submission),
-  });
+    let body = await response.text();
+    if (body == "Accepted"){
+      enteredWords = [...enteredWords, wordchain];
+      effect = "hit";
 
-  goto("/fake_definition");
+      
+    }
+
+    else{
+      effect = "miss";
+    }
+    
+    wordchain = "";
+    setTimeout(()=>effect = "", 1000);
+
+  
 
 }
+
 </script>
 
 <main class="container">
   <h1>Word: {word}</h1>
-  
-  <label for="wordchain">Your Word:</label>
+
+
+
+  {#if timeRemaining == 0}
+  <div class = "timer">
+    Time's Up!
+  </div>
+  <button on:click={nextScreen}>Continue</button>
+  {:else}
+  <div class = "timer">
+    {timeRemaining}
+  </div>
+
+  <div class = "effect {effect}">
+    
+  </div>
+
   <input 
       id="wordchain"
       type="text" 
-      bind:value={wordchain} 
+      bind:value={wordchain}
+      on:keydown={handleEnter} 
       placeholder="Enter your word..."
   />
-
-  <button on:click={submitWordChain}>Submit</button>
+  {/if}
+  
+  
+<div class = "words">
+  {#each enteredWords as enteredWord}
+    <span class = "word">{enteredWord}</span>
+  {/each}
+</div>
+  
 </main>
 
 <style>
@@ -77,8 +144,26 @@
       padding: 8px;
       font-size: 1rem;
       width: 300px;
+      
   }
 
+  .effect{
+    position:relative;
+
+    &.hit::after{
+        content: "Hit!";
+        position:absolute;
+        color: green;
+        margin-top: -1ex;
+
+      }
+      &.miss::after{
+        content: "Miss!";
+        position:absolute;
+        color: red;
+        margin-top: -1ex;
+      }
+  }
   button {
       padding: 10px 15px;
       font-size: 1rem;
@@ -91,5 +176,15 @@
 
   button:hover {
       background-color: #0056b3;
+  }
+
+  .timer{
+    font-size: 100px;
+  }
+
+  .words{
+    .word{
+      padding: 1ex;
+    }
   }
 </style>

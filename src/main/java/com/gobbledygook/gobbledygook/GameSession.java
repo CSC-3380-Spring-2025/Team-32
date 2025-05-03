@@ -4,7 +4,10 @@ import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 /* Tracks the state of the game, including the list of players, the current round, and the phase of the current round */
@@ -16,12 +19,14 @@ public class GameSession {
     private List<Definition> fakeDefinitions;
     private Round currentRound;
     private GamePhase state;
+    private Map<UUID,Set<String>> shiritoriWords;
 
     public GameSession() {
         this.id = UUID.randomUUID();
         this.players = new ArrayList<>();
         this.currentRound = new Round();
         this.state = GamePhase.ROUND_START;
+        this.shiritoriWords = new HashMap<>();
     }
 
     public void addPlayer(Player player) {

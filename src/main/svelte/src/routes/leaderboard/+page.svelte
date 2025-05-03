@@ -1,4 +1,7 @@
 <script>
+  import { goto } from '$app/navigation';
+  import { page } from '$app/stores';
+
   let leaderboard = [];
   let top_half = [];
   let bottom_half = [];
@@ -63,6 +66,17 @@
     text-align: center;
     color: white;
   }
+
+  .continuebutton{
+    font-size: 20px;
+    background-color: blue;
+    color: white;
+    border-radius: 7px;
+    margin: auto;
+    display: block;
+
+  }
+
 </style>
 
 <div class="leaderboard">
@@ -94,5 +108,10 @@
         {/each}
       </div>
     </div>
+    {#if $page.url.searchParams.get("nextpage")}
+    <div>
+      <button class = "continuebutton" on:click="{goto("/"+$page.url.searchParams.get("nextpage"))}">Continue</button>
+    </div>
+    {/if}
   {/if}
 </div>

@@ -20,7 +20,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @RestController
@@ -35,8 +37,8 @@ public class SubmissionController {
         switch (submission.getType()) {
             case "wordchain":
                 session.getCurrentRound().addWordChain(submission.getPlayerId(), submission.getContent());
-                validateShiritoriWord(submission.getPlayerId(), submission.getContent());
-                break;
+                boolean accepted = validateShiritoriWord(submission.getPlayerId(), submission.getContent());
+                return ResponseEntity.ok(accepted ? "Accepted" : "Rejected");
             case "definition":
                 session.getCurrentRound().addDefinition(submission.getPlayerId(), submission.getContent());
                 // to do: trigger websocket message for peek definition powerup
@@ -60,7 +62,7 @@ public class SubmissionController {
         return ResponseEntity.status(HttpStatus.OK).body("Submission processed");
     }
 
-    private void validateShiritoriWord(UUID playerId, String word) {
+    private boolean validateShiritoriWord(UUID playerId, String word) {
         String targetWord = session.getCurrentRound().getTargetWord();
         Resource resource = new ClassPathResource("wordlist");
         try {
@@ -75,10 +77,21 @@ public class SubmissionController {
 
             if (word.charAt(0) == targetWord.charAt(targetWord.length() - 1) && dictionary.contains(word)) {
                 Player player = session.getPlayerById(playerId);
-                player.setScore(player.getScore() + 1);
+                Set<String> words = session.getShiritoriWords().computeIfAbsent(player.getId(), p -> new HashSet<>());
+                boolean accepted = words.add(word);
+                if (accepted){
+                    player.setScore(player.getScore() + 1);
+
                 }
+
+                return accepted;
+                
+            }
         } catch (IOException e) {
             System.err.println("Error reading dictionary");
         }
+
+        return false;
+
     }
 }
