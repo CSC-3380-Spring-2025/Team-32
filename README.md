@@ -37,12 +37,11 @@ Designs: [Design Folder Link](https://github.com/CSC-3380-Spring-2025/Team-32/tr
 
 Clone the latest upadated version of the files under the main branch. 
 Open the terminal and enter in the following command.
+We were able to run the code both on VSCode and using the command line. 
 
 ```sh
 ./mvnw spring-boot:run
 ```
-
-Then open a separete terminal and enter the following commands.
 
 ```sh
 npm install #if not already installed
