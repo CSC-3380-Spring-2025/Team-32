@@ -12,6 +12,7 @@
     
     let word = "Waiting for word..."; 
     let definition = "";
+    let realDefinition = "";
     let ws;
 
 
@@ -23,6 +24,21 @@
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         word = await response.text();
+      } catch (error) {
+        console.error('Failed to fetch word:', error);
+      }
+    })();
+    });
+
+    
+    onMount(() => {
+    (async () => {
+      try {
+        const response = await fetch('http://localhost:8080/game/getRealDefinition');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        realDefinition = await response.text();
       } catch (error) {
         console.error('Failed to fetch word:', error);
       }
@@ -45,7 +61,7 @@
 		body: JSON.stringify(submission),
 	});
 
-	goto("/vote");
+	goto("/vote_definition");
 
 	// const result = await response.json();
 	// console.log('Submit response:', result);
@@ -54,7 +70,7 @@
 
 <main class="container">
     <div class = "instructions">
-        What do ya think it means?
+        Each player should submit a fake definition for the word displayed below. Just go with your gut feeling!
     </div>
     <h1> {word}</h1>
     
