@@ -22,6 +22,7 @@ public class Round {
     private String targetWord;
     private List<WordChain> wordChainSubmissions; // assuming we'll wanna implement it as a class instead
     private List<Definition> definitions; // i've implemented a definition class
+    private String targetDefinition;
     private List<Story> stories; // assuming we'll want to implement a story class as well
     private Map<UUID, UUID> votes; // Player ID -> Definition ID
 
@@ -32,6 +33,11 @@ public class Round {
         } catch (IOException e) {
             System.err.println("Error reading the dictionary file: " + e.getMessage());
         }
+        try {
+            this.targetDefinition = getActualDefinition(targetWord);
+        } catch (IOException e) {
+            System.err.println("Error reading the dictionary file: " + e.getMessage());
+        }
         this.wordChainSubmissions = new ArrayList<>();
         this.definitions = new ArrayList<>();
         this.stories = new ArrayList<>();
@@ -39,19 +45,43 @@ public class Round {
     }
 
     private static String getRandomWord() throws IOException {
-        Resource resource = new ClassPathResource("wordlist");
+        Resource resource = new ClassPathResource("words.csv");
         InputStream inputStream = resource.getInputStream();
-
+    
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         List<String> words = new ArrayList<>();
         String line;
         while ((line = reader.readLine()) != null) {
-            words.add(line);
+            String[] columns = line.split(",");
+            if (columns.length > 0 && !columns[0].trim().isEmpty()) {
+                words.add(columns[0].trim());
+            }
         }
+    
+        if (words.isEmpty()) {
+            throw new IOException("No words found in CSV.");
+        }
+    
         Random random = new Random();
         int randomIndex = random.nextInt(words.size());
-
+    
         return words.get(randomIndex);
+    }
+
+    private static String getActualDefinition(String currentWord) throws IOException {
+        Resource resource = new ClassPathResource("words.csv");
+        InputStream inputStream = resource.getInputStream();
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        String line;
+        while ((line = reader.readLine()) != null) {
+            String[] columns = line.split(",");
+            if (columns.length >= 2 && columns[0].trim().equalsIgnoreCase(currentWord.trim())) {
+                return columns[1].trim();
+            }
+        }
+
+        return "Definition not found.";
     }
 
     public void addWordChain(UUID playerId, String word) {
