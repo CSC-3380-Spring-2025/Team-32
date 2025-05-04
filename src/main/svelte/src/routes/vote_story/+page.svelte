@@ -26,7 +26,7 @@ async function submitVote(playerId: string): Promise<void> {
   } catch (error) {
     console.error("Error submitting vote:", error);
   }
-  goto("/reaction_game");
+  goto("/reaction_game_directions");
 }
 
 async function fetchVotingOptions() {
