@@ -1,7 +1,7 @@
 class DrawingApp {
     private canvas: HTMLCanvasElement;
     private context: CanvasRenderingContext2D;
-    private paint: boolean = false;
+    private paint!: boolean;
 
     private clickX: number[] = [];
     private clickY: number[] = [];
@@ -38,7 +38,7 @@ class DrawingApp {
         canvas.addEventListener("touchend", this.releaseEventHandler);
         canvas.addEventListener("touchcancel", this.cancelEventHandler);
 
-        // clear function, not sure how to implement
+        // no clear function allowed
         // document.getElementById('clear').addEventListener("click", this.clearEventHandler);
     }
 
@@ -75,6 +75,7 @@ class DrawingApp {
         this.clickDrag = [];
     }
 
+    // Delete this, not relevant
     private clearEventHandler = () => {
         this.clearCanvas();
     }
