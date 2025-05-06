@@ -19,7 +19,7 @@ type MinigameResult = {
 };
 
 let score : number = 0;
-let nextId : number = 0; // ids to identify bubbles
+let nextId : number = 0;
 let clickables : ClickableType[] = [];
 let gameRunning : boolean = true;
 
@@ -40,7 +40,7 @@ onMount(() => {
   };
 });
 
-function spawnClickable() {
+function spawnClickable() : void {
   console.log("Spawning a bubble");
   const x : number = Math.random() * (width - 50);
   const y : number = Math.random() * (height - 50);
@@ -58,8 +58,8 @@ function spawnClickable() {
   ];
 }
 
-function startSpawningClickables() {
-  function spawnAndScheduleNext() {
+function startSpawningClickables() : void {
+  function spawnAndScheduleNext() : void {
     if (!gameRunning) {
 	console.log("Game over");
 	return;
@@ -67,14 +67,14 @@ function startSpawningClickables() {
 
     spawnClickable();
 
-    const delay = 800 + Math.random() * 1200;
+    const delay : number = 800 + Math.random() * 1200;
     setTimeout(spawnAndScheduleNext, delay);
   }
 
   spawnAndScheduleNext();
 }
 
-async function handlePop(id : number) {
+async function handlePop(id : number) : Promise<void> {
   const clicked : ClickableType = clickables.find(b => b.id === id);
   if (!clicked) return;
 
@@ -94,13 +94,13 @@ async function handlePop(id : number) {
   }
 }
 
-function handleExpire(id) {
+function handleExpire(id: number) : void{
   clickables = clickables.filter(b => b.id !== id);
 }
 
 /* send response to server indicating win or loss of the game.
 status = true indicates winning the game */
-async function sendResponse() {
+async function sendResponse() : Promise<void> {
   const result : MinigameResult = {
 	playerId: get(userUUID) ?? '',
 	score: 1

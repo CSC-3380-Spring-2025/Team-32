@@ -4,13 +4,13 @@
   import { get } from 'svelte/store';
   import { goto } from '$app/navigation';
 
-  let powerup: string | null = null;
-  let message = '';
-  let loading = false;
+  let powerup : string | null = null;
+  let message : string = '';
+  let loading : boolean = false;
 
-  onMount(async () => {
+  onMount(async () : Promise<void> => {
     try {
-	const response = await fetch('http://localhost:8080/game/getPowerup');
+	const response : Response = await fetch('http://localhost:8080/game/getPowerup');
       if (!response.ok) throw new Error('Failed to get powerup');
       powerup = await response.text();
     } catch (err) {
@@ -25,7 +25,7 @@
     loading = true;
     message = '';
     try {
-      const response = await fetch(`http://localhost:8080/game/usePowerup?playerId=${encodeURIComponent(get(userUUID))}&powerup=${encodeURIComponent(powerup)}`, {
+      const response : Response = await fetch(`http://localhost:8080/game/usePowerup?playerId=${encodeURIComponent(get(userUUID))}&powerup=${encodeURIComponent(powerup)}`, {
         method: 'POST'
       });
 
@@ -33,7 +33,7 @@
         throw new Error('Failed to use powerup');
       }
 
-      const result = await response.text();
+      const result : string = await response.text();
       message = `Powerup used: ${result}`;
       setTimeout(() => {
         goto('/funny_story');

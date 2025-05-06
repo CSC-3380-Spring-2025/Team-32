@@ -9,12 +9,11 @@ type Story = {
 
 
 let voting_options: Story[] = [];
-let socket: WebSocket | null = null;
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 async function submitVote(playerId: string): Promise<void> {
   try {
-      const response = await fetch(`http://localhost:8080/game/submitVote?playerId=${playerId}`, {
+      const response : Response = await fetch(`http://localhost:8080/game/submitVote?playerId=${playerId}`, {
 	method: "POST"
     });
 
@@ -29,9 +28,9 @@ async function submitVote(playerId: string): Promise<void> {
   goto("/reaction_game");
 }
 
-async function fetchVotingOptions() {
+async function fetchVotingOptions() : Promise<void> {
   try {
-      const response = await fetch('http://localhost:8080/game/getStories', {
+      const response : Response = await fetch('http://localhost:8080/game/getStories', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'

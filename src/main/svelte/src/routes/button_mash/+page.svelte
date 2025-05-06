@@ -1,14 +1,14 @@
 <script>
     import { onMount } from 'svelte';
-    let score = 0;
-    let timeLeft = 10;
-    let isPlaying = false;
+    let score : number = 0;
+    let timeLeft : number = 10;
+    let isPlaying : boolean = false;
     /**
    * @type {number | undefined}
    */
     let interval;
   
-    function startGame() {
+    function startGame() : void {
       score = 0;
       timeLeft = 10;
       isPlaying = true;
@@ -22,7 +22,7 @@
       }, 1000);
     }
   
-    function mash() {
+    function mash() : void {
       if (isPlaying) {
         score += 1;
       }

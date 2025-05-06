@@ -2,19 +2,24 @@
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
 
-  let leaderboard = [];
-  let top_half = [];
-  let bottom_half = [];
-  let loading = true;
+  type LeaderboardEntry = {
+    username: string;
+    score: number;
+  };
 
-  async function resetGame(){
+  let leaderboard : LeaderboardEntry[] = [];
+  let top_half : LeaderboardEntry[] = [];
+  let bottom_half : LeaderboardEntry[] = [];
+  let loading : boolean = true;
+
+  async function resetGame() : Promise<void> {
     await fetch('http://localhost:8080/game/reset');
     goto('/join');
   }
 
-  async function fetchLeaderboard() {
+  async function fetchLeaderboard() : Promise<void> {
     try {
-      const response = await fetch('http://localhost:8080/leaderboard');
+      const response : Response = await fetch('http://localhost:8080/leaderboard');
       if (!response.ok) throw new Error('Failed to fetch leaderboard');
       leaderboard = await response.json();
     } catch (error) {

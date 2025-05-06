@@ -7,7 +7,7 @@
 
     async function joinGame(): void {
         await setupWebSocket();
-        const response: Response = await fetch(
+        const response = await fetch(
             `http://localhost:8080/join?username=${encodeURIComponent(username)}`,
             {
                 method: "POST",
@@ -31,7 +31,7 @@
                 resolve();
             };
 
-            socket.onmessage = (event) => {
+            socket.onmessage = (event : MessageEvent) => {
                 console.log("Message from server:", event.data);
                 if (event.data == "lobby full") {
                     console.log("Lobby full, redirecting...");
