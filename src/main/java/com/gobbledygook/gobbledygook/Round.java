@@ -20,6 +20,7 @@ public class Round {
     @Autowired
     private GameSession gameSession;
     private String targetWord;
+    private String realDefinition;
     private List<WordChain> wordChainSubmissions; // assuming we'll wanna implement it as a class instead
     private List<Definition> definitions; // i've implemented a definition class
     private List<Story> stories; // assuming we'll want to implement a story class as well
@@ -27,18 +28,24 @@ public class Round {
 
     public Round() {
         this.roundNumber = 0;
-        try {
-            this.targetWord = getRandomWord();
-        } catch (IOException e) {
-            System.err.println("Error reading the dictionary file: " + e.getMessage());
-        }
+        getRandomWord();
+        
         this.wordChainSubmissions = new ArrayList<>();
         this.definitions = new ArrayList<>();
         this.stories = new ArrayList<>();
         this.votes = new HashMap<>();
     }
 
-    private static String getRandomWord() throws IOException {
+    @Autowired
+    private WordSelectRepository wordSelectRepository;
+
+    private void getRandomWord(){
+        WordEntity randomWord = wordSelectRepository.findRandomWord();
+        targetWord = randomWord.getWord();
+        realDefinition = randomWord.getDefinition();
+    }
+    
+    /*    private static String getRandomWord() throws IOException {
         Resource resource = new ClassPathResource("wordlist");
         InputStream inputStream = resource.getInputStream();
 
@@ -53,7 +60,7 @@ public class Round {
 
         return words.get(randomIndex);
     }
-
+    */
     public void addWordChain(UUID playerId, String word) {
         wordChainSubmissions.add(new WordChain(playerId, word));
     }
