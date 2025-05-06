@@ -10,8 +10,9 @@
     import { userUUID } from '$lib/stores/user';
     import { get } from 'svelte/store';
     
-    let word : string = "Waiting for word..."; 
+    let word : string = "Waiting for word...";
     let funny_story : string = "";
+    let errorMessage : string = "";
 
     onMount(() => {
     (async () => {
@@ -34,6 +35,15 @@
             type: 'story',
             content: funny_story
         };
+        
+        if (!submission.content.includes(word)) {
+            errorMessage = "Your submission must contain the word!";
+            console.log("Submission denied beacuse it doesn't have the word")
+            console.log(submission.content);
+            return;
+        } else {
+            console.log ("Submission accepted")
+        }
 
         const response : Response = await fetch('http://localhost:8080/submit', {
 		method: 'POST',
@@ -49,9 +59,14 @@
 
 <main class="container">
     <div class = "instructions">
-        Make a story with the word!
+        Make a funny story with the word displayed below. The funniest story will win!
     </div>
     <h1>{word}</h1>
+    <div>
+        {#if errorMessage}
+            <p>{errorMessage}</p>
+        {/if}
+    </div>
     
     <input 
         id="story"

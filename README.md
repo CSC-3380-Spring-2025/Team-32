@@ -14,10 +14,21 @@ Our project is a competitive and fun game between 4 players where they must try 
 - Linux
 - Windows
 # Important Links
-Kanban Board: [link](https://github.com/orgs/CSC-3380-Spring-2025/projects/4)\
-Designs: [link](https://discord.gg/uvwRvnqs) (in our discord)
+Kanban Board: [Kanban Link](https://github.com/orgs/CSC-3380-Spring-2025/projects/4)\
+Designs: [Design Folder Link](https://github.com/CSC-3380-Spring-2025/Team-32/tree/funny-story-input-checks/designs)\
+Styles Guide(s): [Style Guide Link](https://github.com/CSC-3380-Spring-2025/Team-32/blob/funny-story-input-checks/Code%20Standards%20%26%20Style%20Guide.pdf)
 
 # How to Run Dev and Test Environment
+
+## Dependencies
+- Svelte, version 5.28
+- Java, version 21.0.1
+- Spring Boot, version 3.4.3
+- SQLite, version ???
+- Maven, version 3.9.9
+- npm, verion 10.9.0
+- Vite, version 6.2.2
+### Downloading Dependencies
 
 ### Frontend
 - [Svelte](https://svelte.dev)
@@ -33,12 +44,27 @@ Designs: [link](https://discord.gg/uvwRvnqs) (in our discord)
 - [Maven](https://maven.apache.org/)
 - [npm](https://www.npmjs.com/)
 
+### IDEs
+- [VSCode](https://code.visualstudio.com/download) (not strictly needed, as you can also run the commands straight from the command line)
+
 ## Commands
+
+Clone the latest upadated version of the files under the main branch. 
+Open the terminal and enter in the following command.
+We were able to run the code both on VSCode and using the command line. 
 
 ```sh
 ./mvnw spring-boot:run
 ```
 
 ```sh
+npm install #if not already installed
+cd src/main/svelte
 npm run dev
 ```
+
+This should give you a link to http://localhost:5173/join where you can begin playing!
+
+## Testing
+
+This game is intended to be played by 4 players, locally. To test the game with just one person, simply open 4 incognito tabs with http://localhost:5173/join and enter in inputs for each player. 

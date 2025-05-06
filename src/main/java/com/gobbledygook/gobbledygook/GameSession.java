@@ -20,8 +20,10 @@ public class GameSession {
     private Round currentRound;
     private GamePhase state;
     private Map<UUID,Set<String>> shiritoriWords;
+    private List<Player> rejoinPlayers;
 
     public GameSession() {
+        this.players = new ArrayList<>();
         reset();
 
     }
@@ -72,11 +74,11 @@ public class GameSession {
 
     public void reset() {
         this.id = UUID.randomUUID();
-        this.players = new ArrayList<>();
         this.currentRound = new Round();
         this.state = GamePhase.ROUND_START;
         this.shiritoriWords = new HashMap<>();
         this.fakeDefinitions = new ArrayList<>();
+        this.rejoinPlayers = new ArrayList<>();
     }
 
 }

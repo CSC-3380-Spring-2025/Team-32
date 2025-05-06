@@ -11,7 +11,7 @@
   onMount(async () : Promise<void> => {
     try {
 	const response : Response = await fetch('http://localhost:8080/game/getPowerup');
-      if (!response.ok) throw new Error('Failed to get powerup');
+    if (!response.ok) throw new Error('Failed to get powerup');
       powerup = await response.text();
     } catch (err) {
       console.error(err);
