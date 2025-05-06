@@ -10,8 +10,12 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 /* Tracks the state of the game, including the list of players, the current round, and the phase of the current round */
 @Data
+@Component
 public class GameSession {
     private UUID id;
     /* players must always be sorted based on Player.score */
@@ -21,10 +25,11 @@ public class GameSession {
     private GamePhase state;
     private Map<UUID,Set<String>> shiritoriWords;
 
+    @Autowired
     public GameSession() {
         this.id = UUID.randomUUID();
         this.players = new ArrayList<>();
-        this.currentRound = new Round();
+        this.currentRound = currentRound;
         this.state = GamePhase.ROUND_START;
         this.shiritoriWords = new HashMap<>();
     }

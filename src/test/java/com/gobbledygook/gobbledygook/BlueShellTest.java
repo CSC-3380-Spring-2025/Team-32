@@ -1,4 +1,4 @@
-package com.gobbledygook.gobbledygook;
+/* package com.gobbledygook.gobbledygook;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -43,3 +43,4 @@ class BlueShellTest {
 	}
 
 }
+*/

@@ -3,8 +3,10 @@ package com.gobbledygook.gobbledygook;
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,7 +17,9 @@ import java.util.stream.Collectors;
 
 /* Represents a single round, tracking submissions and votes */
 @Data
+@Component
 public class Round {
+    private WordSelectRepository wordSelectRepository;
     private int roundNumber;
     @Autowired
     private GameSession gameSession;
@@ -26,7 +30,8 @@ public class Round {
     private List<Story> stories; // assuming we'll want to implement a story class as well
     private Map<UUID, UUID> votes; // Player ID -> Definition ID
 
-    public Round() {
+    @Autowired
+    public Round(WordSelectRepository wordSelectRepository, @Lazy GameSession gameSession) {
         this.roundNumber = 0;
         getRandomWord();
         
@@ -36,9 +41,8 @@ public class Round {
         this.votes = new HashMap<>();
     }
 
+    
     @Autowired
-    private WordSelectRepository wordSelectRepository;
-
     private void getRandomWord(){
         WordEntity randomWord = wordSelectRepository.findRandomWord();
         targetWord = randomWord.getWord();
@@ -103,7 +107,7 @@ public class Round {
                 Player owner = playerMap.get(votedDefinition.getOwnerId());
     
                 // Award points for voting correctly
-                if (votedDefinition.getText().equals(targetWord)) {
+                if (votedDefinition.getText().equals(realDefinition)) {
                     voter.setScore(voter.getScore() + 1);
                 }
     
