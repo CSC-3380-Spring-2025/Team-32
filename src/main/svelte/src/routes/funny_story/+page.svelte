@@ -10,15 +10,14 @@
     import { userUUID } from '$lib/stores/user';
     import { get } from 'svelte/store';
     
-    let word = "Waiting for word..."; 
-    let funny_story = "";
-    let errorMessage = "";
-
+    let word : string = "Waiting for word...";
+    let funny_story : string = "";
+    let errorMessage : string = "";
 
     onMount(() => {
     (async () => {
       try {
-        const response = await fetch('http://localhost:8080/game/getWord');
+        const response : Response = await fetch('http://localhost:8080/game/getWord');
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -29,8 +28,9 @@
     })();
     });
 
-    async function submitFunnyStory() {
-        const submission = {
+    async function submitFunnyStory() : Promise<void> {
+
+        const submission: Submission = {
             playerId: get(userUUID) ?? '',
             type: 'story',
             content: funny_story
@@ -45,15 +45,15 @@
             console.log ("Submission accepted")
         }
 
-        const response = await fetch('http://localhost:8080/submit', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(submission),
-        });
+        const response : Response = await fetch('http://localhost:8080/submit', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(submission),
+	});
 
-        goto("/vote_story");
+	goto("/vote_story");
     }
 </script>
 

@@ -10,12 +10,11 @@ type Definition = {
 
 
 let voting_options: Definition[] = [];
-let socket: WebSocket | null = null;
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 async function submitVote(ownerId: string): Promise<void> {
   try {
-      const response = await fetch(`http://localhost:8080/game/submitVote?playerId=${ownerId}`, {
+      const response : Response = await fetch(`http://localhost:8080/game/submitVote?playerId=${ownerId}`, {
 	method: "POST"
     });
 
@@ -30,9 +29,9 @@ async function submitVote(ownerId: string): Promise<void> {
   goto("/powerup");
 }
 
-async function fetchVotingOptions() {
+async function fetchVotingOptions() : Promise<void> {
   try {
-      const response = await fetch('http://localhost:8080/game/getDefinitions', {
+      const response : Response = await fetch('http://localhost:8080/game/getDefinitions', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'

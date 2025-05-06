@@ -4,14 +4,23 @@
   import { userUUID } from '$lib/stores/user';
   import { get } from 'svelte/store';
 
-  let leaderboard = [];
-  let top_half = [];
-  let bottom_half = [];
-  let loading = true;
+  type LeaderboardEntry = {
+    username: string;
+    score: number;
+  };
+
+  let leaderboard : LeaderboardEntry[] = [];
+  let top_half : LeaderboardEntry[] = [];
+  let bottom_half : LeaderboardEntry[] = [];
+  let loading : boolean = true;
   let socket: WebSocket | null = null;
   let serverResponse: string = "";
-  let rejoined = false;
+  let rejoined : boolean = false;
 
+    async function resetGame() : Promise<void> {
+      await fetch('http://localhost:8080/game/reset');
+      goto('/join');
+    }
     async function waitForRestart(): void {
         await setupWebSocket();
         const response: Response = await fetch(
@@ -56,10 +65,9 @@
         });
     }
 
-
-  async function fetchLeaderboard() {
+  async function fetchLeaderboard() : Promise<void> {
     try {
-      const response = await fetch('http://localhost:8080/leaderboard');
+      const response : Response = await fetch('http://localhost:8080/leaderboard');
       if (!response.ok) throw new Error('Failed to fetch leaderboard');
       leaderboard = await response.json();
     } catch (error) {

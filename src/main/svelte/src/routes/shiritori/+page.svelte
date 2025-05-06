@@ -1,72 +1,68 @@
 <script lang="ts">
-  type Submission = {
-    playerId: string; 
-    type: 'wordchain' | 'definition' | 'story'; 
-    content: string;
-  };
+type Submission = {
+  playerId: string;
+  type: 'wordchain' | 'definition' | 'story';
+  content: string;
+};
 
-  import { onMount } from "svelte";
-  import { goto } from '$app/navigation';
-  import { userUUID } from '$lib/stores/user';
-  import { get } from 'svelte/store';
-  
-  let word = "Waiting for word..."; 
-  let wordchain = "";
-  let ws;
-  let timeLimit = 10;
-  let timeRemaining = timeLimit;
-  let enteredWords: string[] = [];
-  let effect = "";
+import { onMount } from "svelte";
+import { goto } from '$app/navigation';
+import { userUUID } from '$lib/stores/user';
+import { get } from 'svelte/store';
 
+let word: string = "Waiting for word...";
+let wordchain: string = "";
+let timeLimit: number = 10;
+let timeRemaining: number = timeLimit;
+let enteredWords: string[] = [];
+let effect: string = "";
 
-  onMount(() => {
+onMount(() => {
   (async () => {
     try {
-      const response = await fetch('http://localhost:8080/game/getWord');
+      const response : Response = await fetch('http://localhost:8080/game/getWord');
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      word = await response.text(); // This automatically triggers re-render
+      word = await response.text();
       startTimer();
     } catch (error) {
       console.error('Failed to fetch word:', error);
     }
   })();
-  });
+});
 
-  function startTimer(){
-    enteredWords = [];
-    timeRemaining = timeLimit;
-    let timer = setInterval(()=>{
-      timeRemaining--;
-      if (timeRemaining <= 0){
-        clearInterval(timer);
-      }
-    }, 1000);
-  }
-
-  async function handleEnter(event){
-    if (event.key == "Enter"){
-      submitWordChain();
+function startTimer(): void {
+  enteredWords = [];
+  timeRemaining = timeLimit;
+  const timer = setInterval(() => {
+    timeRemaining--;
+    if (timeRemaining <= 0) {
+      clearInterval(timer);
     }
+  }, 1000);
+}
 
+function handleEnter(event: KeyboardEvent): void {
+  if (event.key === "Enter") {
+    submitWordChain();
   }
+}
 
-  async function nextScreen(){
+function nextScreen(): void {
+  goto("/leaderboard?nextpage=fake_definition");
+}
 
-    goto("/leaderboard?nextpage=fake_definition");
+async function submitWordChain(): Promise<void> {
+  effect = "";
+  const submission: Submission = {
+    playerId: get(userUUID) ?? '',
+    type: 'wordchain',
+    content: wordchain,
+  };
 
-  }
-
-  async function submitWordChain() {
-    effect = "";
-    const submission: Submission = {
-        playerId: get(userUUID) ?? '',
-        type: 'wordchain',
-        content: wordchain
-    };
-
-    const response = await fetch('http://localhost:8080/submit', {
+  try {
+    const response : Response = await fetch('http://localhost:8080/submit', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -74,25 +70,21 @@
       body: JSON.stringify(submission),
     });
 
-    let body = await response.text();
-    if (body == "Accepted"){
+    const body = await response.text();
+    if (body === "Accepted") {
       enteredWords = [...enteredWords, wordchain];
       effect = "hit";
-
-      
-    }
-
-    else{
+    } else {
       effect = "miss";
     }
-    
+
     wordchain = "";
-    setTimeout(()=>effect = "", 1000);
-
-  
-
+    setTimeout(() => effect = "", 1000);
+  } catch (error) {
+    console.error("Error submitting wordchain:", error);
+    effect = "miss";
+  }
 }
-
 </script>
 
 <main class="container">
