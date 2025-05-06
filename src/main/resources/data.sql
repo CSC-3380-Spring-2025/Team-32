@@ -1,5 +1,5 @@
 CREATE TABLE words (
-id INTEGER PRIMARY KEY AUTOINCREMENT,
+id INTEGER PRIMARY KEY AUTO_INCREMENT,
 word TEXT UNIQUE NOT NULL,
 definition TEXT UNIQUE NOT NULL
 );
@@ -14,3 +14,4 @@ INSERT INTO words (Word, Definition) Values ('shot-clog', 'a bore tolerated only
 INSERT INTO words (Word, Definition) Values ('jarkman', 'a vagabond counterfeiter of documents');
 INSERT INTO words (Word, Definition) Values ('zugzwang', 'the necessity of moving in chess when it is to one''s disadvantage');
 INSERT INTO words (Word, Definition) Values ('jumboism', 'admiration for large things');
+
