@@ -47,11 +47,13 @@
     }
 </script>
 
+<div class="page">
+<img src="book1.webp" alt="Book Left" class="side-image" />
 <main class="container">
     <div class = "instructions">
         What do ya think it means?
     </div>
-    <h1> {word}</h1>
+    <h1 class="word-box"> {word}</h1>
     
     <label for="definition"></label>
     <input 
@@ -63,8 +65,18 @@
 
     <button on:click={submitDefinition}>Submit</button>
 </main>
+<img src="book2.webp" alt="Book Right" class="side-image" />
+</div>
 
 <style>
+    .page {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 1rem;
+    margin: 2rem;
+    }
+
     .container {
         display: flex;
         flex-direction: column;
@@ -100,5 +112,25 @@
 
     button:hover {
         background-color: #0056b3;
+    }
+
+    .word-box {
+        width: 90%;
+        height: 90%;
+        text-align: center;
+        padding: 3rem;
+        background-image: url('heading.webp');
+        background-size: cover;
+        background-position: center;
+        color: black;
+        font-size: 2rem;
+        border-radius: 10px;
+    }
+
+    .side-image {
+        width: auto;
+        height: auto;
+        object-fit: contain;
+	margin: 3rem;
     }
 </style>
