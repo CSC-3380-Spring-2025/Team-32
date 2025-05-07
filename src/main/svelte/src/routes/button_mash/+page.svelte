@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     import { onMount } from 'svelte';
     let score : number = 0;
     let timeLeft : number = 10;
@@ -6,7 +6,7 @@
     /**
    * @type {number | undefined}
    */
-    let interval;
+    let interval: number | undefined;
   
     function startGame() : void {
       score = 0;
