@@ -29,6 +29,7 @@ Styles Guide: [Style Guide Link](https://github.com/CSC-3380-Spring-2025/Team-32
 - Maven, version 3.9.9
 - npm, verion 10.9.0
 - Vite, version 6.2.2
+- Node.js, version 22.12.0
 ### Downloading Dependencies
 
 ### Frontend
@@ -38,6 +39,7 @@ Styles Guide: [Style Guide Link](https://github.com/CSC-3380-Spring-2025/Team-32
 ### Backend
 - [Java](https://www.java.com/)
 - [Spring Boot](https://spring.io/projects/spring-boot)
+- [Node.js](https://nodejs.org/en/download)
 
 ### Database
 - [SQLite](https://www.sqlite.org/)
