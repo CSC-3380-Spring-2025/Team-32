@@ -16,12 +16,13 @@ Our project is a competitive and fun game between 4 players where they must try 
 # Important Links
 Kanban Board: [Kanban Link](https://github.com/orgs/CSC-3380-Spring-2025/projects/4)\
 Designs: [Design Folder Link](https://github.com/CSC-3380-Spring-2025/Team-32/tree/funny-story-input-checks/designs)\
-Styles Guide(s): [Style Guide Link](https://github.com/CSC-3380-Spring-2025/Team-32/blob/funny-story-input-checks/Code%20Standards%20%26%20Style%20Guide.pdf)
+Styles Guide: [Style Guide Link](https://github.com/CSC-3380-Spring-2025/Team-32/blob/funny-story-input-checks/Code%20Standards%20%26%20Style%20Guide.pdf)
 
 # How to Run Dev and Test Environment
 
 ## Dependencies
 - Svelte, version 5.28
+- TypeScript, version 5.8.2
 - Java, version 21.0.1
 - Spring Boot, version 3.4.3
 - SQLite, version ???
@@ -32,6 +33,7 @@ Styles Guide(s): [Style Guide Link](https://github.com/CSC-3380-Spring-2025/Team
 
 ### Frontend
 - [Svelte](https://svelte.dev)
+- [TypeScript](https://www.typescriptlang.org/download/)
 
 ### Backend
 - [Java](https://www.java.com/)
