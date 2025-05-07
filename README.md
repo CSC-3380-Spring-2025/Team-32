@@ -22,6 +22,7 @@ Styles Guide(s): [Style Guide Link](https://github.com/CSC-3380-Spring-2025/Team
 
 ## Dependencies
 - Svelte, version 5.28
+- TypeScript, version 5.8.2
 - Java, version 21.0.1
 - Spring Boot, version 3.4.3
 - SQLite, version ???
@@ -32,6 +33,7 @@ Styles Guide(s): [Style Guide Link](https://github.com/CSC-3380-Spring-2025/Team
 
 ### Frontend
 - [Svelte](https://svelte.dev)
+- [TypeScript](https://www.typescriptlang.org/download/)
 
 ### Backend
 - [Java](https://www.java.com/)
