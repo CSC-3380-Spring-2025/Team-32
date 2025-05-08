@@ -54,16 +54,24 @@ Styles Guide: [Style Guide Link](https://github.com/CSC-3380-Spring-2025/Team-32
 ## Commands
 
 Clone the latest upadated version of the files under the main branch. 
-Open the terminal and enter in the following command.
+Open the terminal and enter in the following commands.
 We were able to run the code both on VSCode and using the command line. 
 
+To install dependencies on Debian:
+
+``` sh
+sudo apt install openjdk-17-jre openjdk-17-jdk nodejs npm
+```
+
+Open two terminal windows, for running the backend and frontend respectively.
+
+In the first, navigate to the root of the project and run
 ```sh
 ./mvnw spring-boot:run
 ```
-
+In the second, navigate to src/main/svelte and run the following commands:
 ```sh
 npm install #if not already installed
-cd src/main/svelte
 npm run dev
 ```
 
