@@ -81,7 +81,7 @@ async function handlePop(id : number) : Promise<void> {
   if (clicked.isBomb) {
     // send failure message to server
     gameRunning = false;
-    goto("/leaderboard");
+    goto("/button_mash");
     return;
   }
 
@@ -90,7 +90,7 @@ async function handlePop(id : number) : Promise<void> {
   if (score > 10) {
     gameRunning = false;
     await sendResponse();
-    goto("/leaderboard");
+    goto("/button_mash");
   }
 }
 
