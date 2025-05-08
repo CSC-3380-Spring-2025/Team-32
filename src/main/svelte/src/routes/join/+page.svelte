@@ -52,6 +52,7 @@
 
 <div class="wrapper">
     <div class="shadowBox"><span>Gobbledygook</span></div>
+    <div class="catchPhrase">Learn completely random words you will most likely never hear or use again...</div>
     <div class="instructions">Type a name and join the game!</div>
     <div class="input-form">
         <input type="text" bind:value={username} placeholder="Enter username" />
@@ -60,6 +61,12 @@
     {#if serverResponse}
         <p>{serverResponse}</p>
     {/if}
+    <span class = "a">Callipygian</span>
+    <span class = "b">Anathema</span>
+    <span class = "c">Kerfuffle</span>
+    <span class = "d">Hippopotomonstrosesquippedaliophobia</span>
+    <span class = "e">Impignorate</span>
+    <span class = "f">Vaticinate</span>
 </div>
 
 <style>
@@ -145,22 +152,92 @@
     .instructions {
         background-color: #0a41d8;
         text-align: center;
-
+        margin-top: 50px;
         padding: 5px;
         border: 2px solid green;
         border-radius: 10px;
     }
 
+    .catchPhrase{
+        animation:shakeItOff .5s linear infinite;
+        text-align: center;
+        background: linear-gradient(to right, #6666ff, #0099ff , #00ff00, #ff3399, #6666ff);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        font-size: 20px;
+        font-weight: bold;
+        font-style: italic;
+    }
+
+    @keyframes shakeItOff{
+        0%{transform: translateX(0);}
+        25%{transform: translateX(5px);}
+        50%{transform: translateX(-5px);}
+        75%{transform: translateX(5px);}
+        100%{transform: translateX(0);}
+    }
+
+
     .wrapper {
         max-width: 75%;
         margin: auto;
         position: relative;
-        
-    }
 
+        }
+        
+    .a{
+        transform: translate(100px, 50px );
+        display: block;
+        background: linear-gradient(to right, #6666ff, #0099ff , #00ff00, #ff3399, #6666ff);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+    .b{
+        transform: translate(0px, 175px );
+        display: block;
+        background: linear-gradient(to right, #6666ff, #0099ff , #00ff00, #ff3399, #6666ff);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+    .c{
+        transform: translate(160px, 250px );
+        display: block;
+        background: linear-gradient(to right, #6666ff, #0099ff , #00ff00, #ff3399, #6666ff);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+    .d{
+        transform: translate(450px, 150px );
+        display: block;
+        background: linear-gradient(to right, #6666ff, #0099ff , #00ff00, #ff3399, #6666ff);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+    .e{
+        transform: translate(221px, 75px );
+        display: block;
+        background: linear-gradient(to right, #6666ff, #0099ff , #00ff00, #ff3399, #6666ff);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+    .f{
+        transform: translate(635px, -45px );
+        display: block;
+        background: linear-gradient(to right, #6666ff, #0099ff , #00ff00, #ff3399, #6666ff);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        animation: rainbow_animation 6s ease-in-out infinite;
+    }
     .input-form{
         text-align: center;
-        margin-top: 300px;
+        margin-top: 20px;
         font-size: 35px;
         input{
             font-size: 35px;
@@ -169,17 +246,9 @@
     }
 
     .shadowBox {
-    background-color: rgb(0, 0, 0);
-    /* Fallback color */
-    background-color: rgba(0, 0, 0, 0.2);
-    /* Black w/opacity/see-through */
-    border: 3px solid;
-    position: absolute;
-        right:0;
-        margin-right: 100%;
+        margin:auto;
         padding: 10px;
-        text-orientation: upright;
-        writing-mode: vertical-lr;
+        text-align: center;
         font-size: 18px;
 }
 
@@ -187,7 +256,7 @@
     text-transform: uppercase;
     text-align: center;
     text-decoration: underline;
-    font-size: 32px;
+    font-size: 50px;
     font-family: monospace;
     background: linear-gradient(to right, #6666ff, #0099ff , #00ff00, #ff3399, #6666ff);
     -webkit-background-clip: text;
