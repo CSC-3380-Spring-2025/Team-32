@@ -25,7 +25,6 @@ Styles Guide: [Style Guide Link](https://github.com/CSC-3380-Spring-2025/Team-32
 - TypeScript, version 5.8.2
 - Java, version 21.0.1
 - Spring Boot, version 3.4.3
-- SQLite, version ???
 - Maven, version 3.9.9
 - npm, verion 10.9.0
 - Vite, version 6.2.2
@@ -40,9 +39,6 @@ Styles Guide: [Style Guide Link](https://github.com/CSC-3380-Spring-2025/Team-32
 - [Java](https://www.java.com/)
 - [Spring Boot](https://spring.io/projects/spring-boot)
 - [Node.js](https://nodejs.org/en/download)
-
-### Database
-- [SQLite](https://www.sqlite.org/)
 
 ### Build Tools
 - [Maven](https://maven.apache.org/)
